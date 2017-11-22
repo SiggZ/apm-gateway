@@ -1,0 +1,43 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "surname",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "location",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "grade",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "projectAvailability",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "ahcr",
+            "fieldType": "Double"
+        }
+    ],
+    "dto": "no",
+    "service": "serviceImpl",
+    "entityTableName": "person",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no",
+    "microserviceName": "PersonService",
+    "searchEngine": false
+}
