@@ -33,7 +33,8 @@ spring:
         serialization.indent_output: true
     data:
         mongodb:
-            uri: mongodb://localhost:27017
+#            uri: mongodb://localhost:27017
+            uri: mongodb://localhost:27020
             database: Gateway
     mail:
         host: localhost
