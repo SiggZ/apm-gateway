@@ -2,7 +2,7 @@
   "generator-jhipster": {
     "promptValues": {
       "packageName": "tum.sebis.apm",
-      "microservicePath": "..\\apm-person-service"
+      "microservicePath": "..\\apm-iteration-service"
     },
     "jhipsterVersion": "4.10.2",
     "baseName": "Gateway",
