@@ -35,6 +35,12 @@
                             <span>Person</span>
                         </a>
                     </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="iteration" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <span>Iteration</span>
+                        </a>
+                    </li>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                 </ul>
             </li>
