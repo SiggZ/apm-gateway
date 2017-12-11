@@ -5,6 +5,7 @@ import { GatewaySharedModule } from '../shared';
 
 import { HOME_ROUTE, HomeComponent, ALLOCATE_ROUTE  } from './';
 import {AllocateComponent} from '../extras/allocate/allocate.component';
+import { jqxListBoxComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxlistbox';
 
 @NgModule({
     imports: [
@@ -13,6 +14,7 @@ import {AllocateComponent} from '../extras/allocate/allocate.component';
     ],
     declarations: [
         HomeComponent,
+        jqxListBoxComponent,
         AllocateComponent
     ],
     entryComponents: [
