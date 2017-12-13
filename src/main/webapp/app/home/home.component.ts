@@ -9,7 +9,7 @@ import { Account, LoginModalService, Principal } from '../shared';
     styleUrls: [
         'home.scss'
     ],
-    providers: [NgbProgressbarConfig]
+    providers: []
 
 })
 export class HomeComponent implements OnInit {

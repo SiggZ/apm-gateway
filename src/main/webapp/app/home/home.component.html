@@ -6,7 +6,9 @@
             <div class="alert alert-success" *ngSwitchCase="true">
                 <span *ngIf="account"> You are logged in as user "{{account.login}}". </span>
             </div>
-
+            <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+                <ngb-panel title="Sprint 1">
+                    <ng-template ngbPanelContent>
             <div class="row">
                 <div class="col-md-11">
                     <ngb-progressbar max="21" [value]="16" [striped]="true"
@@ -17,6 +19,9 @@
                     </ngb-progressbar>
                 </div>
             </div>
+                    </ng-template>
+                </ngb-panel>
+            </ngb-accordion>
         </div>
 
     </div>
