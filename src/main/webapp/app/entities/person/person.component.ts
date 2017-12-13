@@ -15,6 +15,7 @@ export class PersonComponent implements OnInit, OnDestroy {
 people: Person[];
     currentAccount: any;
     eventSubscriber: Subscription;
+    currentSearch: string;
 
     constructor(
         private personService: PersonService,

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
-
 import { Account, LoginModalService, Principal } from '../shared';
 
 @Component({
@@ -9,7 +8,8 @@ import { Account, LoginModalService, Principal } from '../shared';
     templateUrl: './home.component.html',
     styleUrls: [
         'home.scss'
-    ]
+    ],
+    providers: [NgbProgressbarConfig]
 
 })
 export class HomeComponent implements OnInit {

@@ -1,22 +1,35 @@
 <div>
-    <h2>
-        <span>People</span>
-        <button class="btn btn-primary float-right jh-create-entity create-person" [routerLink]="['/', { outlets: { popup: ['person-new'] } }]">
-            <span class="fa fa-plus"></span>
-            <span >
-            Create new Person
-            </span>
-        </button>
-    </h2>
     <jhi-alert></jhi-alert>
     <div class="row">
+        <div class="col-sm-8">
+            <h2>People</h2>
+        </div>
+        <div class="col-sm-4 text-right">
+            <button class="btn btn-primary float-right jh-create-entity create-person" [routerLink]="['/', { outlets: { popup: ['person-new'] } }]" [ngbTooltip]="addTooltip" placement="bottom">
+                <span class="fa fa-plus">
+                    <ng-template #addTooltip>
+                       <span>Create new Person</span>
+                     </ng-template>
+                </span>
+            </button>
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mr-1">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" >
+                    <button class="input-group-addon btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-addon btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
     <br/>
     <div class="table-responsive" *ngIf="people">
         <table class="table table-striped">
             <thead>
             <tr>
-            <th><span>ID</span></th>
             <th><span>Name</span></th>
             <th><span>Surname</span></th>
             <th><span>Location</span></th>
@@ -28,7 +41,6 @@
             </thead>
             <tbody>
             <tr *ngFor="let person of people ;trackBy: trackId">
-                <td><a [routerLink]="['../person', person.id ]">{{person.id}}</a></td>
                 <td>{{person.name}}</td>
                 <td>{{person.surname}}</td>
                 <td>{{person.location}}</td>
