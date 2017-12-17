@@ -3,22 +3,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
-import { Person } from './person.model';
-import { PersonService } from './person.service';
+import { Team } from './team.model';
+import { TeamService } from './team.service';
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
 
 @Component({
-    selector: 'jhi-person',
-    templateUrl: './person.component.html'
+    selector: 'jhi-team',
+    templateUrl: './team.component.html'
 })
-export class PersonComponent implements OnInit, OnDestroy {
-people: Person[];
+export class TeamComponent implements OnInit, OnDestroy {
+teams: Team[];
     currentAccount: any;
     eventSubscriber: Subscription;
-    currentSearch: string;
 
     constructor(
-        private personService: PersonService,
+        private teamService: TeamService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal
@@ -26,9 +25,9 @@ people: Person[];
     }
 
     loadAll() {
-        this.personService.query().subscribe(
+        this.teamService.query().subscribe(
             (res: ResponseWrapper) => {
-                this.people = res.json;
+                this.teams = res.json;
             },
             (res: ResponseWrapper) => this.onError(res.json)
         );
@@ -38,18 +37,18 @@ people: Person[];
         this.principal.identity().then((account) => {
             this.currentAccount = account;
         });
-        this.registerChangeInPeople();
+        this.registerChangeInTeams();
     }
 
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId(index: number, item: Person) {
+    trackId(index: number, item: Team) {
         return item.id;
     }
-    registerChangeInPeople() {
-        this.eventSubscriber = this.eventManager.subscribe('personListModification', (response) => this.loadAll());
+    registerChangeInTeams() {
+        this.eventSubscriber = this.eventManager.subscribe('teamListModification', (response) => this.loadAll());
     }
 
     private onError(error) {

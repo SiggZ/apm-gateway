@@ -29,7 +29,7 @@ export class NavbarComponent implements OnInit {
         private profileService: ProfileService,
         private router: Router
     ) {
-        this.version = VERSION ? 'v' + VERSION : '';
+        this.version = '';
         this.isNavbarCollapsed = true;
     }
 

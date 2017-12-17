@@ -5,7 +5,7 @@
         </a>
         <a class="navbar-brand logo float-left" routerLink="/" (click)="collapseNavbar()">
             <span class="logo-img"></span>
-            <span class="navbar-title">Gateway</span> <span class="navbar-version">{{version}}</span>
+            <span class="navbar-title">ZuLu</span> <span class="navbar-version">{{version}}</span>
         </a>
     </div>
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
@@ -16,6 +16,12 @@
                         <i class="fa fa-home" aria-hidden="true"></i>
                         <span>Home</span>
                     </span>
+                </a>
+            </li>
+            <li *ngSwitchCase="true" class="nav-item">
+                <a class="nav-link" routerLink="allocate" routerLinkActive="active">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <span>Allocate</span>
                 </a>
             </li>
             <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
@@ -41,6 +47,12 @@
                             <span>Iteration</span>
                         </a>
                     </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="team" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <span>Team</span>
+                        </a>
+                    </li>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                 </ul>
             </li>
@@ -55,7 +67,7 @@
                     <li>
                         <a class="dropdown-item" routerLink="gateway" routerLinkActive="active" (click)="collapseNavbar()">
                             <i class="fa fa-fw fa-road" aria-hidden="true"></i>
-                            <span>Gateway</span>
+                            <span>ZuLu</span>
                         </a>
                     </li>
                     <li>

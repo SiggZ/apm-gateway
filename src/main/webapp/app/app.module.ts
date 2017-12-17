@@ -22,7 +22,7 @@ import {
     FooterComponent,
     ProfileService,
     PageRibbonComponent,
-    ErrorComponent
+    ErrorComponent,
 } from './layouts';
 
 @NgModule({

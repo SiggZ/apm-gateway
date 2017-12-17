@@ -1,0 +1,39 @@
+<h2>
+  Assign Teams to Sprints
+</h2>
+<br/>
+<div class="container-fluid">
+    <div class="card jh-card">
+        <div class="row">
+            <div class="column">
+                <jqxListBox #jqxListBox
+                            [filterable]="true"
+                            [multiple]="true"
+                            [source]="dataAdapter"
+                            [width]="200"
+                            [height]="200">
+                </jqxListBox>
+            </div>
+
+            <div class="col">
+                <div class="column">
+                    <div class="card-text">
+                        Selected Sprint Teams:
+                    </div>
+                </div>
+                <div class="col">
+                    <ul> <li *ngFor="let team of  myListBox.selectedIndexes()"> {{source[team]}} </li> </ul>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <button type="button" class="btn btn-raised btn-primary" (click)="displaySelectedItems">Allocate</button>
+        </div>
+
+    </div>
+</div>

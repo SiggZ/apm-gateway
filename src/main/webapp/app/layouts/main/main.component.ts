@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRouteSnapshot, NavigationEnd } from '@angular/router';
-
+import {StateStorageService } from '../../shared';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -11,11 +11,12 @@ export class JhiMainComponent implements OnInit {
 
     constructor(
         private titleService: Title,
-        private router: Router
+        private router: Router,
+        private $storageService: StateStorageService
     ) {}
 
     private getPageTitle(routeSnapshot: ActivatedRouteSnapshot) {
-        let title: string = (routeSnapshot.data && routeSnapshot.data['pageTitle']) ? routeSnapshot.data['pageTitle'] : 'gatewayApp';
+        let title: string = (routeSnapshot.data && routeSnapshot.data['pageTitle']) ? routeSnapshot.data['pageTitle'] : 'ZuLu';
         if (routeSnapshot.firstChild) {
             title = this.getPageTitle(routeSnapshot.firstChild) || title;
         }

@@ -10,7 +10,9 @@ Main page styles
     background: url("../../content/images/hipster.png") no-repeat center top;
     background-size: contain;
 }
-
+ngb-progressbar {
+    margin-top: 5rem;
+}
 /* wait autoprefixer update to allow simple generation of high pixel density media query */
 @media
 only screen and (-webkit-min-device-pixel-ratio: 2),

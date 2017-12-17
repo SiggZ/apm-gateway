@@ -3,15 +3,19 @@ import { RouterModule } from '@angular/router';
 
 import { GatewaySharedModule } from '../shared';
 
-import { HOME_ROUTE, HomeComponent } from './';
+import { HOME_ROUTE, HomeComponent, ALLOCATE_ROUTE  } from './';
+import {AllocateComponent} from '../extras/allocate/allocate.component';
+import { jqxListBoxComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxlistbox';
 
 @NgModule({
     imports: [
         GatewaySharedModule,
-        RouterModule.forRoot([ HOME_ROUTE ], { useHash: true })
+        RouterModule.forRoot([ HOME_ROUTE, ALLOCATE_ROUTE], { useHash: true })
     ],
     declarations: [
         HomeComponent,
+        jqxListBoxComponent,
+        AllocateComponent
     ],
     entryComponents: [
     ],
