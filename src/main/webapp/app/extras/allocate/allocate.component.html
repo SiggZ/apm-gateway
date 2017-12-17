@@ -1,5 +1,5 @@
 <h2>
-  Assign Teams to Sprints
+    Assign Teams to Sprints
 </h2>
 <br/>
 <div class="container-fluid">
@@ -9,7 +9,9 @@
                 <jqxListBox #jqxListBox
                             [filterable]="true"
                             [multiple]="true"
-                            [source]="dataAdapter"
+                            [displayMember]="name"
+                            [valueMember]="id"
+                            [source]="teams"
                             [width]="200"
                             [height]="200">
                 </jqxListBox>
@@ -18,7 +20,7 @@
             <div class="col">
                 <div class="column">
                     <div class="card-text">
-                        Selected Sprint Teams:
+                        Test Teams:
                     </div>
                 </div>
                 <div class="col">
@@ -27,8 +29,6 @@
                 </div>
 
             </div>
-
-
         </div>
 
         <div class="row">
