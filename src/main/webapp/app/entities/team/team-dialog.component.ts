@@ -48,7 +48,10 @@ export class TeamDialogComponent implements OnInit {
 
     private subscribeToSaveResponse(result: Observable<Team>) {
         result.subscribe((res: Team) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError());
+            this.onSaveSuccess(res), (res: Response) => {
+            this.onError(res.json());
+            this.onSaveError();
+        });
     }
 
     private onSaveSuccess(result: Team) {
@@ -62,7 +65,7 @@ export class TeamDialogComponent implements OnInit {
     }
 
     private onError(error: any) {
-        this.jhiAlertService.error(error.message, null, null);
+        this.jhiAlertService.error(error.detail, null, null);
     }
 }
 
