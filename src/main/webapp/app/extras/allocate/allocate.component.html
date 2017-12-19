@@ -1,39 +1,29 @@
-<h2>
-    Assign Teams to Sprints
-</h2>
-<br/>
-<div class="container-fluid">
-    <div class="card jh-card">
-        <div class="row">
-            <div class="column">
-                <jqxListBox #jqxListBox
-                            [filterable]="true"
-                            [multiple]="true"
-                            [displayMember]="name"
-                            [valueMember]="id"
-                            [source]="teams"
-                            [width]="200"
-                            [height]="200">
-                </jqxListBox>
-            </div>
 
-            <div class="col">
-                <div class="column">
-                    <div class="card-text">
-                        Test Teams:
-                    </div>
-                </div>
-                <div class="col">
-                    <ul> <li *ngFor="let team of  myListBox.selectedIndexes()"> {{source[team]}} </li> </ul>
+<form name="searchForm" class="form-inline" [formGroup]="iterationChoiceFormGroup">
+<div>
+<div class="row">
+<ngx-multiselect class="dropdown-menu-center" [(ngModel)]="model" [options]="teams" [displayName]="'name'" [trackBy]="'id'"
+                 [ngModelOptions]="{standalone: true}" [multiple]="true" placeholder="Select Teams" formControlName="dropdownModel" >
 
-                </div>
+</ngx-multiselect>
 
-            </div>
+
+    <div class="col-sm-4">
+        <button type="button" class="btn btn-raised btn-primary" (click)="displaySelectedItems">Allocate</button>
+    </div>
+
+</div>
+    <div class="row">
+
+    <div class="card">
+        <div class="card-block">
+            <h6 class="card-subtitle mb-2 text-muted">Selected:</h6>
+            <tr *ngFor="let team of showSelectons ;trackBy: trackId">
+                <td>{{team.name}}</td>
+            </tr>
+
         </div>
-
-        <div class="row">
-            <button type="button" class="btn btn-raised btn-primary" (click)="displaySelectedItems">Allocate</button>
-        </div>
-
+    </div>
     </div>
 </div>
+</form>

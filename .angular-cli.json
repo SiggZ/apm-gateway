@@ -18,6 +18,7 @@
         "prefix": "jhi",
         "mobile": false,
         "styles": [
+            "node_modules/bootstrap/dist/css/bootstrap.min.css",
             "content/scss/vendor.scss",
             "content/scss/global.scss"
         ],

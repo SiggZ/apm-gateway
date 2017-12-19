@@ -6,8 +6,9 @@
             <div class="alert alert-success" *ngSwitchCase="true">
                 <span *ngIf="account"> You are logged in as user "{{account.login}}". </span>
             </div>
+            <div class="alert alert-success" *ngSwitchCase="true">
             <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
-            <ngb-panel title="Sprint 1">
+            <ngb-panel title="Sprint 2">
                 <ng-template ngbPanelContent>
                     <div class="row">
                         <div class="col-md-11">
@@ -33,7 +34,7 @@
             </ngb-panel>
         </ngb-accordion>
             <ngb-accordion #acc="ngbAccordion">
-                <ngb-panel title="Sprint 2">
+                <ngb-panel title="Sprint 1">
                     <ng-template ngbPanelContent>
                         <div class="row">
                             <div class="col-md-11">
@@ -58,6 +59,7 @@
                     </ng-template>
                 </ngb-panel>
             </ngb-accordion>
+            </div>
         </div>
 
     </div>

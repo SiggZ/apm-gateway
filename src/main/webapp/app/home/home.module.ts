@@ -5,16 +5,23 @@ import { GatewaySharedModule } from '../shared';
 
 import { HOME_ROUTE, HomeComponent, ALLOCATE_ROUTE  } from './';
 import {AllocateComponent} from '../extras/allocate/allocate.component';
-import { jqxListBoxComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxlistbox';
+import {MultiselectModule} from 'ngx-multiselect';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
+
 
 @NgModule({
     imports: [
         GatewaySharedModule,
-        RouterModule.forRoot([ HOME_ROUTE, ALLOCATE_ROUTE], { useHash: true })
+        RouterModule.forRoot([ HOME_ROUTE, ALLOCATE_ROUTE], { useHash: true }),
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MultiselectModule.forRoot()
+
     ],
     declarations: [
         HomeComponent,
-        jqxListBoxComponent,
         AllocateComponent
     ],
     entryComponents: [
