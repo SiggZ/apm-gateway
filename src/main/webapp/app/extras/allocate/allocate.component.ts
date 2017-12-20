@@ -1,9 +1,9 @@
-import {AfterViewInit, Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TeamService} from '../../entities/team/team.service';
 import {Team} from '../../entities/team/team.model';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
-import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
-import {FormGroup, FormControl, FormBuilder, Validators, Form} from '@angular/forms';
+import {JhiAlertService } from 'ng-jhipster';
+import {ResponseWrapper } from '../../shared';
+import {FormGroup, FormControl} from '@angular/forms';
 
 @Component({
     selector: 'jhi-allocate',
@@ -17,9 +17,7 @@ export class AllocateComponent implements OnInit {
 
     constructor(
         private teamService: TeamService,
-        private jhiAlertService: JhiAlertService,
-        private formBuilder: FormBuilder
-
+        private jhiAlertService: JhiAlertService
     ) {
         console.log("Constructor called");
 

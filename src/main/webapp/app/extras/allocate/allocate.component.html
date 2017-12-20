@@ -1,15 +1,17 @@
 
 <form name="searchForm" class="form-inline" [formGroup]="iterationChoiceFormGroup">
-<div>
+<div class="container">
+    <div class="row">
+        <h4>Time to plan Sprint 4!</h4>
+    </div>
 <div class="row">
 <ngx-multiselect class="dropdown-menu-center" [(ngModel)]="model" [options]="teams" [displayName]="'name'" [trackBy]="'id'"
                  [ngModelOptions]="{standalone: true}" [multiple]="true" placeholder="Select Teams" formControlName="dropdownModel" >
 
 </ngx-multiselect>
 
-
     <div class="col-sm-4">
-        <button type="button" class="btn btn-raised btn-primary" (click)="displaySelectedItems">Allocate</button>
+        <button type="button" class="btn btn-raised btn-primary"  data-toggle="tooltip" data-placement="top" title="Assign Teams to Sprint" (click)="displaySelectedItems">Assign</button>
     </div>
 
 </div>
