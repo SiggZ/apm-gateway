@@ -1,8 +1,8 @@
-import {AfterViewInit, Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import { jqxListBoxComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxlistbox';
 import {TeamService} from '../../entities/team/team.service';
 import {Team} from '../../entities/team/team.model';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { JhiAlertService } from 'ng-jhipster';
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
 
 @Component({
@@ -10,50 +10,68 @@ import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
     templateUrl: './allocate.component.html'
 })
 export class AllocateComponent implements AfterViewInit {
-    @ViewChild('jqxListBox') myListBox: jqxListBoxComponent;
-    @ViewChild('selectionLog') selectionLog: ElementRef;
-    teams: Team[] = new Array();
-    source: string[]= new Array();
-    dataAdapter: string;
+    @ViewChild('teamListBox') teamListBox: jqxListBoxComponent;
+
+    selectedTeams: Array<any>;
+    teams: Array<Team>;
+    dataSource: any = {
+        datatype: 'array',
+        datafields: [
+            { name: 'id' },
+            { name: 'name' },
+        ],
+        localdata: this.teams
+    };
+    dataAdapter = new jqx.dataAdapter(this.dataSource);
+    options: any = {
+        source: this.dataAdapter,
+        displayMember: 'name',
+        valueMember: 'id',
+        multiple: true,
+        width: 200,
+        height: 250
+    };
+
     constructor(
         private teamService: TeamService,
-        private jhiAlertService: JhiAlertService,
-        private eventManager: JhiEventManager,
-        private principal: Principal
+        private jhiAlertService: JhiAlertService
+    ) {};
 
-    ) {
-        console.log("Constructor called");
+    ngOnInit(): void {
+        this.initializeTeams();
+    };
 
-    }
+    ngAfterViewInit(): void {
+        this.teamListBox.createComponent(this.options);
+        this.teamListBox.onChange.subscribe(
+            (event: Event) => this.onListBoxChange(this, event)
+        )
+    };
 
-
-    initializeTeams() {
-        console.log("Initialize Teams called");
+    initializeTeams(): void {
         this.teamService.query().subscribe(
-            (res: ResponseWrapper) => {
-                this.teams = res.json;
-            },
+            (res: ResponseWrapper) => this.onInitTeamsSuccess(res.json),
             (res: ResponseWrapper) => this.onError(res.json)
         );
+    };
 
-        this.dataAdapter = new jqx.dataAdapter(this.teams);
-    }
+    onInitTeamsSuccess(teams: Array<Team>): void {
+        this.teams = teams;
+        this.dataSource.localdata = this.teams;
+        this.dataAdapter = new jqx.dataAdapter(this.dataSource);
+        this.teamListBox.source(this.dataAdapter);
+    };
 
-    ngAfterViewInit() {
-    }
-
-    ngOnInit(){
-        console.log('Initiated called');
-        this.initializeTeams();
-        /*        this.source = new Array(); */
-
-
-        console.log('Results returned'  + this.teams);
-
-    }
-
-    private onError(error) {
+    private onError(error): void {
         this.jhiAlertService.error(error.message, null, null);
-    }
+    };
+
+    displaySelectedTeams(): void {
+        this.selectedTeams = this.teamListBox.getSelectedItems();
+    };
+
+    onListBoxChange(context: AllocateComponent, event: any): void {
+        context.displaySelectedTeams();
+    };
 
 }

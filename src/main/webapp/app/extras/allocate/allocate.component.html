@@ -1,38 +1,32 @@
 <h2>
-    Assign Teams to Sprints
+    Plan Sprint
 </h2>
+<h4>
+    Assign Teams to Sprint X
+</h4>
 <br/>
 <div class="container-fluid">
     <div class="card jh-card">
         <div class="row">
-            <div class="column">
-                <jqxListBox #jqxListBox
-                            [filterable]="true"
-                            [multiple]="true"
-                            [displayMember]="name"
-                            [valueMember]="id"
-                            [source]="teams"
-                            [width]="200"
-                            [height]="200">
-                </jqxListBox>
+            <div id="jqxWidget" class="column">
+                <jqxListBox #teamListBox></jqxListBox>
             </div>
 
             <div class="col">
                 <div class="column">
                     <div class="card-text">
-                        Test Teams:
+                        Selected Teams:
                     </div>
                 </div>
                 <div class="col">
-                    <ul> <li *ngFor="let team of  myListBox.selectedIndexes()"> {{source[team]}} </li> </ul>
-
+                    <ul> <li *ngFor="let team of selectedTeams"> {{team.label}} </li> </ul>
                 </div>
 
             </div>
         </div>
 
         <div class="row">
-            <button type="button" class="btn btn-raised btn-primary" (click)="displaySelectedItems">Allocate</button>
+            <button type="button" class="btn btn-raised btn-primary">Save</button>
         </div>
 
     </div>
