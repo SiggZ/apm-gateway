@@ -11,14 +11,12 @@
             <div id="jqxWidget" class="column">
                 <jqxListBox #teamListBox
                             [filterable]="true"
-                            [multiple]="true"
-                            [source]="dataAdapter"
                             [width]="200"
                             [height]="200">
                 </jqxListBox>
             </div>
 
-            <div class="col">
+            <div class="col-lg-2">
                 <div class="card">
                     <div class="card-block">
                         <h6 class="card-subtitle mb-2 text-muted">Selected:</h6>
@@ -30,7 +28,7 @@
                 </div>
             </div>
         </div>
-
+<br/>
         <div class="row">
             <button type="button" class="btn btn-raised btn-primary"  data-toggle="tooltip" data-placement="top" title="Assign Teams to Sprint" (click)="displaySelectedItems">Assign</button>
 
