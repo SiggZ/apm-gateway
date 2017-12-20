@@ -1,10 +1,17 @@
 <h2>
     Plan Sprint
 </h2>
-<h4>
-    Assign Teams to Sprint X
-</h4>
 <br/>
+<h5>
+    Assign Teams to <div ngbDropdown class="d-inline-block">
+        <button class="btn " id="dropdownBasic1" ngbDropdownToggle>Sprint 4</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button class="dropdown-item">Sprint 5</button>
+            <button class="dropdown-item">Sprint 6</button>
+            <button class="dropdown-item">Sprint 7</button>
+        </div>
+    </div>
+</h5>
 <div class="container-fluid">
 
         <div class="row">
@@ -21,16 +28,10 @@
                     <div class="card-block">
                         <h6 class="card-subtitle mb-2 text-muted">Selected:</h6>
                         <tr *ngFor="let team of selectedTeams ;trackBy: trackId">
-                            <td>{{team.label}}</td>
-                            <td></td>
-                            <td class="text-right">
-                            <button type="submit"
-                                    [routerLink]="['/', { outlets: { popup: 'team/'+ team.value + '/edit'} }]"
-                                    replaceUrl="true"
-                                    class="btn btn-primary btn-sm">
-                                <span class="fa fa-pencil"></span>
-                                <span class="d-none d-md-inline"></span>
-                            </button>
+                            <td >
+                                    <a class="nav-link" [routerLink]="['/', { outlets: { popup: 'team/'+ team.value + '/edit'} }]" routerLinkActive="active">
+                                        <span>{{team.label}}</span>
+                                    </a>
                             </td>
                         </tr>
 
