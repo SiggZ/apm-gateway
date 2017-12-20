@@ -26,3 +26,18 @@ only screen and (                min-resolution: 2dppx) {
         background-size: contain;
     }
 }
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.borderless table {
+    border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
+}
+.wrappable tr td {
+    word-wrap: break-word;
+}

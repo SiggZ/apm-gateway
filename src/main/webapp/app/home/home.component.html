@@ -6,59 +6,56 @@
             <div class="alert alert-success" *ngSwitchCase="true">
                 <span *ngIf="account"> You are logged in as user "{{account.login}}". </span>
             </div>
-            <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
-            <ngb-panel title="Sprint 1">
-                <ng-template ngbPanelContent>
-                    <div class="row">
-                        <div class="col-md-11">
-                            <b>Team 1</b>
-                            <ngb-progressbar max="21" [value]="16" [striped]="false"
-                                             [type]="success" [hidden]="false">
-                                <span>
-                                    11 / Goal: 16
-                                </span>
-                            </ngb-progressbar>
-                            <br/>
-                            <b>Team 2</b>
-                            <ngb-progressbar max="30" [value]="27" [striped]="false"
-                                             [type]="success" [hidden]="false">
-                                <span>
-                                    27 / Goal: 30
-                                </span>
-                            </ngb-progressbar>
-                        </div>
+            <div class="container-fluid" *ngSwitchCase="true">
+                <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+                    <ngb-panel title="Sprint 2">
+                        <ng-template ngbPanelContent>
+                            <table class = "borderless">
+                                <tr>
+                                    <td rowspan = "2">Team A</td>
+                                    <td>56 SP</td>
+                                    <td>98 PD</td>
+                                </tr>
+                                <tr>
+                                    <td>Row 2 Cell 2</td>
+                                    <td>Row 2 Cell 3</td>
+                                </tr>
+                                <tr>
+                                    <td colspan = "3">Row 3 Cell 1</td>
+                                </tr>
+                            </table>
 
-                    </div>
-                </ng-template>
-            </ngb-panel>
-        </ngb-accordion>
-            <ngb-accordion #acc="ngbAccordion">
-                <ngb-panel title="Sprint 2">
-                    <ng-template ngbPanelContent>
-                        <div class="row">
-                            <div class="col-md-11">
-                                <b>Team 1</b>
-                                <ngb-progressbar max="21" [value]="16" [striped]="false"
-                                                 [type]="success" [hidden]="false">
+                        </ng-template>
+                    </ngb-panel>
+                </ngb-accordion>
+                <ngb-accordion #acc="ngbAccordion">
+                    <ngb-panel title="Sprint 1">
+                        <ng-template ngbPanelContent>
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <b>Team 1</b>
+                                    <ngb-progressbar max="21" [value]="16" [striped]="false"
+                                                     [type]="success" [hidden]="false">
                                 <span>
                                     11 / Goal: 16
                                 </span>
-                                </ngb-progressbar>
-                                <br/>
-                                <b>Team 2</b>
-                                <ngb-progressbar max="30" [value]="27" [striped]="false"
-                                                 [type]="success" [hidden]="false">
+                                    </ngb-progressbar>
+                                    <br/>
+                                    <b>Team 2</b>
+                                    <ngb-progressbar max="30" [value]="27" [striped]="false"
+                                                     [type]="success" [hidden]="false">
                                 <span>
                                     27 / Goal: 30
                                 </span>
-                                </ngb-progressbar>
+                                    </ngb-progressbar>
+                                </div>
+
                             </div>
-
-                        </div>
-                    </ng-template>
-                </ngb-panel>
-            </ngb-accordion>
+                        </ng-template>
+                    </ngb-panel>
+                </ngb-accordion>
+            </div>
         </div>
 
     </div>
-    </div>
+</div>
