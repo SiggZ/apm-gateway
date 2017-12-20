@@ -22,13 +22,23 @@
                         <h6 class="card-subtitle mb-2 text-muted">Selected:</h6>
                         <tr *ngFor="let team of selectedTeams ;trackBy: trackId">
                             <td>{{team.label}}</td>
+                            <td></td>
+                            <td class="text-right">
+                            <button type="submit"
+                                    [routerLink]="['/', { outlets: { popup: 'team/'+ team.value + '/edit'} }]"
+                                    replaceUrl="true"
+                                    class="btn btn-primary btn-sm">
+                                <span class="fa fa-pencil"></span>
+                                <span class="d-none d-md-inline"></span>
+                            </button>
+                            </td>
                         </tr>
 
                     </div>
                 </div>
             </div>
         </div>
-<br/>
+        <br/>
         <div class="row">
             <button type="button" class="btn btn-raised btn-primary"  data-toggle="tooltip" data-placement="top" title="Assign Teams to Sprint" (click)="displaySelectedItems">Assign</button>
 
