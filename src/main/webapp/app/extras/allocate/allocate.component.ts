@@ -2,6 +2,9 @@ import {AfterViewInit, Component, ViewChild, OnInit, OnDestroy} from '@angular/c
 import { jqxListBoxComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxlistbox';
 import {TeamService} from '../../entities/team/team.service';
 import {Team} from '../../entities/team/team.model';
+import {IterationService} from '../../entities/iteration/iteration.service';
+import {Iteration} from '../../entities/iteration/iteration.model';
+
 import {JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
 import { Subscription } from 'rxjs/Rx';
@@ -15,6 +18,7 @@ export class AllocateComponent implements AfterViewInit, OnInit, OnDestroy {
     eventSubscriber: Subscription;
     selectedTeams: Array<any>;
     teams: Array<Team>;
+    iterations: Array<Iteration>;
     dataSource: any = {
         datatype: 'array',
         datafields: [
@@ -35,6 +39,7 @@ export class AllocateComponent implements AfterViewInit, OnInit, OnDestroy {
 
     constructor(
         private teamService: TeamService,
+        private iterationService: IterationService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager
     ) {};
@@ -44,6 +49,7 @@ export class AllocateComponent implements AfterViewInit, OnInit, OnDestroy {
     };
     ngOnInit(): void {
         this.initializeTeams();
+        this.initializeIterations();
         this.registerChangeInTeams();
     };
     ngOnDestroy() {
@@ -62,7 +68,6 @@ export class AllocateComponent implements AfterViewInit, OnInit, OnDestroy {
             (res: ResponseWrapper) => this.onError(res.json)
         );
     };
-
     onInitTeamsSuccess(teams: Array<Team>): void {
         this.teams = teams;
         this.dataSource.localdata = this.teams;
@@ -70,6 +75,15 @@ export class AllocateComponent implements AfterViewInit, OnInit, OnDestroy {
         this.teamListBox.source(this.dataAdapter);
     };
 
+    initializeIterations(): void {
+        this.iterationService.query().subscribe(
+            (res: ResponseWrapper) => this.onInitIterationsSuccess(res.json),
+            (res: ResponseWrapper) => this.onError(res.json)
+        );
+    };
+    onInitIterationsSuccess(iterations: Array<Iteration>): void {
+        this.iterations = iterations;
+    };
     private onError(error): void {
         this.jhiAlertService.error(error.message, null, null);
     };

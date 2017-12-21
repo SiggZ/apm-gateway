@@ -4,11 +4,11 @@
 <br/>
 <h5>
     Assign Teams to <div ngbDropdown class="d-inline-block">
-        <button class="btn " id="dropdownBasic1" ngbDropdownToggle>Sprint 4</button>
-        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <button class="dropdown-item">Sprint 5</button>
-            <button class="dropdown-item">Sprint 6</button>
-            <button class="dropdown-item">Sprint 7</button>
+        <button class="btn " id="sprintDropdownId" ngbDropdownToggle>Sprint 4</button>
+        <div ngbDropdownMenu aria-labelledby="sprintDropdownId" >
+           <li  *ngFor="let iterat of iterations">
+             <button class="dropdown-item">{{iterat.name}}</button>
+           </li>
         </div>
     </div>
 </h5>
