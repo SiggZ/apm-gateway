@@ -1,17 +1,18 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ViewChild, OnInit, OnDestroy} from '@angular/core';
 import { jqxListBoxComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxlistbox';
 import {TeamService} from '../../entities/team/team.service';
 import {Team} from '../../entities/team/team.model';
-import { JhiAlertService } from 'ng-jhipster';
+import {JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
+import { Subscription } from 'rxjs/Rx';
 
 @Component({
     selector: 'jhi-allocate',
     templateUrl: './allocate.component.html'
 })
-export class AllocateComponent implements AfterViewInit {
+export class AllocateComponent implements AfterViewInit, OnInit, OnDestroy {
     @ViewChild('teamListBox') teamListBox: jqxListBoxComponent;
-
+    eventSubscriber: Subscription;
     selectedTeams: Array<any>;
     teams: Array<Team>;
     dataSource: any = {
@@ -34,13 +35,20 @@ export class AllocateComponent implements AfterViewInit {
 
     constructor(
         private teamService: TeamService,
-        private jhiAlertService: JhiAlertService
+        private jhiAlertService: JhiAlertService,
+        private eventManager: JhiEventManager
     ) {};
 
+    registerChangeInTeams() {
+        this.eventSubscriber = this.eventManager.subscribe('teamListModification', (response) => {this.initializeTeams(); this.clearSelectedTeams()})
+    };
     ngOnInit(): void {
         this.initializeTeams();
+        this.registerChangeInTeams();
     };
-
+    ngOnDestroy() {
+        this.eventManager.destroy(this.eventSubscriber);
+    }
     ngAfterViewInit(): void {
         this.teamListBox.createComponent(this.options);
         this.teamListBox.onChange.subscribe(
@@ -68,6 +76,9 @@ export class AllocateComponent implements AfterViewInit {
 
     displaySelectedTeams(): void {
         this.selectedTeams = this.teamListBox.getSelectedItems();
+    };
+    clearSelectedTeams(): void {
+        this.selectedTeams = new Array<any>();
     };
 
     onListBoxChange(context: AllocateComponent, event: any): void {
