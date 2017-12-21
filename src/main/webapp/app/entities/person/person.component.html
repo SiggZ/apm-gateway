@@ -12,17 +12,7 @@
                      </ng-template>
                 </span>
             </button>
-            <form name="searchForm" class="form-inline">
-                <div class="input-group w-100 mr-1">
-                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" >
-                    <button class="input-group-addon btn btn-info" (click)="search(currentSearch)">
-                        <span class="fa fa-search"></span>
-                    </button>
-                    <button class="input-group-addon btn btn-danger" (click)="clear()" *ngIf="currentSearch">
-                        <span class="fa fa-trash-o"></span>
-                    </button>
-                </div>
-            </form>
+
         </div>
     </div>
     <br/>
