@@ -34,3 +34,4 @@ $input-border-focus: lighten($blue, 25%);
 
 // Calendar styles
 @import 'node_modules/angular-calendar/scss/angular-calendar';
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
