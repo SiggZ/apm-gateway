@@ -4,6 +4,7 @@ import {TeamService} from '../../entities/team/team.service';
 import {Team} from '../../entities/team/team.model';
 import {IterationService} from '../../entities/iteration/iteration.service';
 import {Iteration} from '../../entities/iteration/iteration.model';
+import {FormGroup, FormControl} from '@angular/forms';
 
 import {JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
@@ -16,9 +17,11 @@ import { Subscription } from 'rxjs/Rx';
 export class AllocateComponent implements AfterViewInit, OnInit, OnDestroy {
     @ViewChild('teamListBox') teamListBox: jqxListBoxComponent;
     eventSubscriber: Subscription;
+    selectedSprint: string;
     selectedTeams: Array<any>;
     teams: Array<Team>;
     iterations: Array<Iteration>;
+    sprintFormGroup: FormGroup;
     dataSource: any = {
         datatype: 'array',
         datafields: [
@@ -51,6 +54,8 @@ export class AllocateComponent implements AfterViewInit, OnInit, OnDestroy {
         this.initializeTeams();
         this.initializeIterations();
         this.registerChangeInTeams();
+
+        this.sprintFormGroup = new FormGroup({ sprintDropdownControl: new FormControl() });
     };
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
