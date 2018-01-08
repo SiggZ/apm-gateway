@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, ViewChild, OnInit, OnDestroy} from '@angular/core';
-import { jqxListBoxComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxlistbox';
 import {TeamService} from '../../entities/team/team.service';
 import {Team} from '../../entities/team/team.model';
 import {IterationService} from '../../entities/iteration/iteration.service';
@@ -15,30 +14,12 @@ import { Subscription } from 'rxjs/Rx';
     templateUrl: './allocate.component.html'
 })
 export class AllocateComponent implements AfterViewInit, OnInit, OnDestroy {
-    @ViewChild('teamListBox') teamListBox: jqxListBoxComponent;
     eventSubscriber: Subscription;
-    selectedSprint: string;
+    selectedSprint: Iteration;
     selectedTeams: Array<any>;
     teams: Array<Team>;
     iterations: Array<Iteration>;
     sprintFormGroup: FormGroup;
-    dataSource: any = {
-        datatype: 'array',
-        datafields: [
-            { name: 'id' },
-            { name: 'name' },
-        ],
-        localdata: this.teams
-    };
-    dataAdapter = new jqx.dataAdapter(this.dataSource);
-    options: any = {
-        source: this.dataAdapter,
-        displayMember: 'name',
-        valueMember: 'id',
-        multiple: true,
-        width: 200,
-        height: 250
-    };
 
     constructor(
         private teamService: TeamService,
@@ -61,10 +42,10 @@ export class AllocateComponent implements AfterViewInit, OnInit, OnDestroy {
         this.eventManager.destroy(this.eventSubscriber);
     }
     ngAfterViewInit(): void {
-        this.teamListBox.createComponent(this.options);
+    /*    this.teamListBox.createComponent(this.options);
         this.teamListBox.onChange.subscribe(
             (event: Event) => this.onListBoxChange(this, event)
-        )
+        )*/
     };
 
     initializeTeams(): void {
@@ -75,9 +56,9 @@ export class AllocateComponent implements AfterViewInit, OnInit, OnDestroy {
     };
     onInitTeamsSuccess(teams: Array<Team>): void {
         this.teams = teams;
-        this.dataSource.localdata = this.teams;
+       /* this.dataSource.localdata = this.teams;
         this.dataAdapter = new jqx.dataAdapter(this.dataSource);
-        this.teamListBox.source(this.dataAdapter);
+        this.teamListBox.source(this.dataAdapter);*/
     };
 
     initializeIterations(): void {
@@ -92,16 +73,16 @@ export class AllocateComponent implements AfterViewInit, OnInit, OnDestroy {
     private onError(error): void {
         this.jhiAlertService.error(error.message, null, null);
     };
-
-    displaySelectedTeams(): void {
-        this.selectedTeams = this.teamListBox.getSelectedItems();
-    };
     clearSelectedTeams(): void {
         this.selectedTeams = new Array<any>();
     };
+  /*  displaySelectedTeams(): void {
+        this.selectedTeams = this.teamListBox.getSelectedItems();
+    };*/
 
-    onListBoxChange(context: AllocateComponent, event: any): void {
+
+ /*   onListBoxChange(context: AllocateComponent, event: any): void {
         context.displaySelectedTeams();
-    };
+    };*/
 
 }
