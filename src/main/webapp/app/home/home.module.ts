@@ -5,7 +5,6 @@ import { GatewaySharedModule } from '../shared';
 
 import { HOME_ROUTE, HomeComponent, ALLOCATE_ROUTE  } from './';
 import {AllocateComponent} from '../extras/allocate/allocate.component';
-import { jqxListBoxComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxlistbox';
 import {MatButtonModule, MatCardModule, MatFormFieldModule, MatOptionModule, MatSelectModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -27,7 +26,6 @@ import {CommonModule} from '@angular/common';
     ],
     declarations: [
         HomeComponent,
-        jqxListBoxComponent,
         AllocateComponent
     ],
     entryComponents: [
