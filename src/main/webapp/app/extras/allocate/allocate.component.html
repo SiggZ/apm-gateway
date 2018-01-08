@@ -6,7 +6,7 @@
     <div class="co;">
         <form>
             <mat-form-field>
-                <mat-select placeholder="Plan Sprint" [(ngModel)]="selectedSprint" name="theSprint">
+                <mat-select placeholder="Plan Sprint" [(ngModel)]="selectedSprint" [formControl]="sprintControl" name="theSprint">
                     <mat-option *ngFor="let iterat of iterations" [value]="iterat">
                         {{iterat.name}}
                     </mat-option>
@@ -15,7 +15,7 @@
         </form>
         <form>
                 <mat-form-field>
-                    <mat-select placeholder="Select Teams" [(ngModel)]="selectedTeams" name="theTeams" multiple>
+                    <mat-select placeholder="Select Teams" [(ngModel)]="selectedTeams" [formControl]="teamSelectionControl" name="theTeams" multiple>
                         <mat-option *ngFor="let team of teams" [value]="team">
                             {{team.name}}
                         </mat-option>
@@ -39,7 +39,7 @@
         <button mat-raised-button color="primary"  data-toggle="tooltip" data-placement="top" title="Assign Teams to Sprint" (click)="displaySelectedItems">Plan</button>
 
     </div>
- 
+
 
 
 </div>
