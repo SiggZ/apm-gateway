@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs/Rx';
 export class AllocateComponent implements OnInit, OnDestroy {
     eventSubscriber: Subscription;
     selectedSprint: Iteration;
-    selectedTeams: Array<any>;
+    selectedTeams: Array<Team>;
     teams: Array<Team>;
     iterations: Array<Iteration>;
     sprintControl: FormControl;
@@ -30,7 +30,7 @@ export class AllocateComponent implements OnInit, OnDestroy {
     ) {};
 
     registerChangeInTeams() {
-        this.eventSubscriber = this.eventManager.subscribe('teamListModification', (response) => {this.initializeTeams(); this.clearSelectedTeams()})
+        this.eventSubscriber = this.eventManager.subscribe('teamListModification', (response) => {this.handleTeamModification()})
     };
     ngOnInit(): void {
         this.initializeTeams();
@@ -62,9 +62,6 @@ export class AllocateComponent implements OnInit, OnDestroy {
     };
     onInitTeamsSuccess(teams: Array<Team>): void {
         this.teams = teams;
-       /* this.dataSource.localdata = this.teams;
-        this.dataAdapter = new jqx.dataAdapter(this.dataSource);
-        this.teamListBox.source(this.dataAdapter);*/
     };
 
     initializeIterations(): void {
@@ -82,12 +79,21 @@ export class AllocateComponent implements OnInit, OnDestroy {
     clearSelectedTeams(): void {
         this.selectedTeams = new Array<any>();
     };
-    displaySelectedTeams(): void {
-      //  this.selectedTeams = this.teamListBox.getSelectedItems();
+    private handleTeamModification() {
+        const selectedTeamsIds = this.selectedTeams.map((x) =>  x.id);
+        this.teamService.query().subscribe(
+            (res: ResponseWrapper) => {
+                this.teams = res.json;
+                this.selectedTeams = new Array<Team>();
+                for (var ateam of this.teams) {
+                    if (selectedTeamsIds.indexOf(ateam.id) > -1) {
+                        console.log(ateam.name);
+                        this.selectedTeams.push(ateam);
+                    }
+                }
+            },
+            (res: ResponseWrapper) => this.onError(res.json)
+        );
     };
-
- /*   onListBoxChange(context: AllocateComponent, event: any): void {
-        context.displaySelectedTeams();
-    };*/
-
+    displaySelectedItems() {}
 }
