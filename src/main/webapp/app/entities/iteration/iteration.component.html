@@ -16,17 +16,17 @@
         <table class="table table-striped">
             <thead>
             <tr>
-            <th><span>Name</span></th>
-            <th><span>Start</span></th>
-            <th><span>End</span></th>
-            <th></th>
+                <th><span>Name</span></th>
+                <th><span>Start</span></th>
+                <th><span>End</span></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let iteration of iterations ;trackBy: trackId">
                 <td>{{iteration.name}}</td>
-                <td>{{iteration.start | date:'short': 'UTC'}}</td>
-                <td>{{iteration.end | date: 'short': 'UTC'}}</td>
+                <td>{{iteration.start | date:'medium'}}</td>
+                <td>{{iteration.end | date:'medium'}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
