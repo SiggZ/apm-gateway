@@ -53,6 +53,7 @@ export class AllocateComponent implements OnInit, OnDestroy {
     initializeTeamsForSprint() {
         console.log('Change that later');
         this.initializeTeams();
+        this.selectedTeams = new Array<Team>();
     }
     initializeTeams(): void {
         this.teamService.query().subscribe(
