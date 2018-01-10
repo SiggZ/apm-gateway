@@ -18,6 +18,8 @@ export class IterationDialogComponent implements OnInit {
 
     iteration: Iteration;
     isSaving: boolean;
+    startDp: any;
+    endDp: any;
 
     constructor(
         public activeModal: NgbActiveModal,

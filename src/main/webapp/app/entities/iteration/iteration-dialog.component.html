@@ -25,16 +25,22 @@
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_start">Start</label>
-            <div class="d-flex">
-                <input id="field_start" type="datetime-local" class="form-control" name="start" [(ngModel)]="iteration.start"
-                  />
+            <div class="input-group">
+                <input id="field_start" type="text" class="form-control" name="start" ngbDatepicker  #startDp="ngbDatepicker" [(ngModel)]="iteration.start"
+                />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-secondary" (click)="startDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
             </div>
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_end">End</label>
-            <div class="d-flex">
-                <input id="field_end" type="datetime-local" class="form-control" name="end" [(ngModel)]="iteration.end"
-                  />
+            <div class="input-group">
+                <input id="field_end" type="text" class="form-control" name="end" ngbDatepicker  #endDp="ngbDatepicker" [(ngModel)]="iteration.end"
+                />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-secondary" (click)="endDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
             </div>
         </div>
 

@@ -62,9 +62,9 @@ export class IterationService {
     private convertItemFromServer(json: any): Iteration {
         const entity: Iteration = Object.assign(new Iteration(), json);
         entity.start = this.dateUtils
-            .convertDateTimeFromServer(json.start);
+            .convertLocalDateFromServer(json.start);
         entity.end = this.dateUtils
-            .convertDateTimeFromServer(json.end);
+            .convertLocalDateFromServer(json.end);
         return entity;
     }
 
@@ -73,10 +73,10 @@ export class IterationService {
      */
     private convert(iteration: Iteration): Iteration {
         const copy: Iteration = Object.assign({}, iteration);
-
-        copy.start = this.dateUtils.toDate(iteration.start);
-
-        copy.end = this.dateUtils.toDate(iteration.end);
+        copy.start = this.dateUtils
+            .convertLocalDateToServer(iteration.start);
+        copy.end = this.dateUtils
+            .convertLocalDateToServer(iteration.end);
         return copy;
     }
 }

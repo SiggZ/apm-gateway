@@ -6,6 +6,7 @@ import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 import { Iteration } from './iteration.model';
 import { IterationService } from './iteration.service';
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
+import {NgbDatepicker} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'jhi-iteration',

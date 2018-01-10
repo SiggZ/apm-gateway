@@ -14,6 +14,7 @@ import {
     iterationRoute,
     iterationPopupRoute,
 } from './';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 const ENTITY_STATES = [
     ...iterationRoute,
@@ -23,6 +24,7 @@ const ENTITY_STATES = [
 @NgModule({
     imports: [
         GatewaySharedModule,
+        NgbModule,
         RouterModule.forRoot(ENTITY_STATES, { useHash: true })
     ],
     declarations: [

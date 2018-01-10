@@ -1,7 +1,6 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { DatePipe } from '@angular/common';
 import { Iteration } from './iteration.model';
 import { IterationService } from './iteration.service';
 
@@ -10,7 +9,6 @@ export class IterationPopupService {
     private ngbModalRef: NgbModalRef;
 
     constructor(
-        private datePipe: DatePipe,
         private modalService: NgbModal,
         private router: Router,
         private iterationService: IterationService
@@ -28,10 +26,20 @@ export class IterationPopupService {
 
             if (id) {
                 this.iterationService.find(id).subscribe((iteration) => {
-                    iteration.start = this.datePipe
-                        .transform(iteration.start, 'yyyy-MM-ddTHH:mm:ss');
-                    iteration.end = this.datePipe
-                        .transform(iteration.end, 'yyyy-MM-ddTHH:mm:ss');
+                    if (iteration.start) {
+                        iteration.start = {
+                            year: iteration.start.getFullYear(),
+                            month: iteration.start.getMonth() + 1,
+                            day: iteration.start.getDate()
+                        };
+                    }
+                    if (iteration.end) {
+                        iteration.end = {
+                            year: iteration.end.getFullYear(),
+                            month: iteration.end.getMonth() + 1,
+                            day: iteration.end.getDate()
+                        };
+                    }
                     this.ngbModalRef = this.iterationModalRef(component, iteration);
                     resolve(this.ngbModalRef);
                 });
