@@ -1,13 +1,14 @@
-import {AfterViewInit, Component, ViewChild, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {FormControl} from '@angular/forms';
 import {TeamService} from '../../entities/team/team.service';
 import {Team} from '../../entities/team/team.model';
 import {IterationService} from '../../entities/iteration/iteration.service';
 import {Iteration} from '../../entities/iteration/iteration.model';
-import {FormGroup, FormControl} from '@angular/forms';
+import {SprintTeamService} from '../sprint-team/sprint-team.service'
 
 import {JhiEventManager, JhiAlertService } from 'ng-jhipster';
-import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
-import { Subscription } from 'rxjs/Rx';
+import {ResponseWrapper} from '../../shared';
+import {Subscription} from 'rxjs/Rx';
 
 @Component({
     selector: 'jhi-allocate',
@@ -25,6 +26,7 @@ export class AllocateComponent implements OnInit, OnDestroy {
     constructor(
         private teamService: TeamService,
         private iterationService: IterationService,
+        private sprintTeamService: SprintTeamService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager
     ) {};
@@ -32,6 +34,7 @@ export class AllocateComponent implements OnInit, OnDestroy {
     registerChangeInTeams() {
         this.eventSubscriber = this.eventManager.subscribe('teamListModification', (response) => {this.handleTeamModification()})
     };
+
     ngOnInit(): void {
         this.initializeTeams();
         this.initializeIterations();
@@ -46,21 +49,24 @@ export class AllocateComponent implements OnInit, OnDestroy {
             console.log('Team Selection made');
         });
     };
+
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
-    }
+    };
 
     initializeTeamsForSprint() {
         console.log('Change that later');
         this.initializeTeams();
         this.selectedTeams = new Array<Team>();
-    }
+    };
+
     initializeTeams(): void {
         this.teamService.query().subscribe(
             (res: ResponseWrapper) => this.onInitTeamsSuccess(res.json),
             (res: ResponseWrapper) => this.onError(res.json)
         );
     };
+
     onInitTeamsSuccess(teams: Array<Team>): void {
         this.teams = teams;
     };
@@ -71,15 +77,19 @@ export class AllocateComponent implements OnInit, OnDestroy {
             (res: ResponseWrapper) => this.onError(res.json)
         );
     };
+
     onInitIterationsSuccess(iterations: Array<Iteration>): void {
         this.iterations = iterations;
     };
+
     private onError(error): void {
         this.jhiAlertService.error(error.message, null, null);
     };
+
     clearSelectedTeams(): void {
         this.selectedTeams = new Array<any>();
     };
+
     private handleTeamModification() {
         const selectedTeamsIds = this.selectedTeams.map((x) =>  x.id);
         this.teamService.query().subscribe(
@@ -96,5 +106,9 @@ export class AllocateComponent implements OnInit, OnDestroy {
             (res: ResponseWrapper) => this.onError(res.json)
         );
     };
-    displaySelectedItems() {}
+
+    // create SprintTeam entities for the selected teams in the sprint
+    createSprintTeams() {
+        this.sprintTeamService.createSprintTeams(this.selectedSprint, this.selectedTeams);
+    }
 }

@@ -27,6 +27,7 @@ import {
     PageRibbonComponent,
     ErrorComponent,
 } from './layouts';
+import {SprintTeamService} from "./extras/sprint-team/sprint-team.service";
 
 @NgModule({
     imports: [
@@ -57,7 +58,8 @@ import {
         ProfileService,
         customHttpProvider(),
         PaginationConfig,
-        UserRouteAccessService
+        UserRouteAccessService,
+        SprintTeamService
     ],
     bootstrap: [ JhiMainComponent ]
 })
