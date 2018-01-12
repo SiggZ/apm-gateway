@@ -1,14 +1,12 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {TeamService} from '../../entities/team/team.service';
-import {Team} from '../../entities/team/team.model';
-import {IterationService} from '../../entities/iteration/iteration.service';
-import {Iteration} from '../../entities/iteration/iteration.model';
-import {SprintTeamService} from '../sprint-team/sprint-team.service'
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { Subscription } from 'rxjs/Rx';
 
-import {JhiEventManager, JhiAlertService } from 'ng-jhipster';
-import {ResponseWrapper} from '../../shared';
-import {Subscription} from 'rxjs/Rx';
+import { ResponseWrapper } from '../../shared';
+import { Team, TeamService } from '../../entities/team';
+import { Iteration, IterationService } from '../../entities/iteration';
+import { SprintTeam, SprintTeamService } from '../sprint-team'
 
 @Component({
     selector: 'jhi-allocate',
@@ -109,6 +107,21 @@ export class AllocateComponent implements OnInit, OnDestroy {
 
     // create SprintTeam entities for the selected teams in the sprint
     createSprintTeams() {
-        this.sprintTeamService.createSprintTeams(this.selectedSprint, this.selectedTeams);
+        this.selectedTeams.forEach((team) => {
+            console.log('Create SprintTeam entity for team ' + team.name);
+            const sprintTeam: SprintTeam = {
+                sprint: {
+                    id: this.selectedSprint.id
+                },
+                team: {
+                    id: team.id
+                }
+            };
+            this.sprintTeamService.create(sprintTeam).subscribe(
+                (response: SprintTeam) => console.log('Successfully created SprintTeam for ' + response.team.name),
+                (error: any) => console.log('Failed to create SprintTeam: ' + error) // TODO: handle errors?
+            );
+        });
+        this.jhiAlertService.success(this.selectedSprint.name + ' has been saved successfully.');
     }
 }

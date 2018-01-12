@@ -1,6 +1,6 @@
 import { BaseEntity } from '../../shared';
-import {Iteration} from "../../entities/iteration";
-import {Team} from "../../entities/team";
+import { Iteration } from '../../entities/iteration';
+import { Team } from '../../entities/team';
 
 export class SprintTeam implements BaseEntity {
     constructor(

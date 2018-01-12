@@ -12,12 +12,13 @@ import { GatewayEntityModule } from './entities/entity.module';
 
 import { customHttpProvider } from './blocks/interceptor/http.provider';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCardModule} from '@angular/material';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule, MatCardModule } from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 
+import {SprintTeamService} from './extras/sprint-team';
 import {
     JhiMainComponent,
     LayoutRoutingModule,
@@ -27,7 +28,6 @@ import {
     PageRibbonComponent,
     ErrorComponent,
 } from './layouts';
-import {SprintTeamService} from "./extras/sprint-team/sprint-team.service";
 
 @NgModule({
     imports: [

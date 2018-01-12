@@ -3,9 +3,6 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
 import { SprintTeam } from './sprint-team.model';
-import { ResponseWrapper, createRequestOption } from '../../shared';
-import {Iteration} from "../../entities/iteration";
-import {Team} from "../../entities/team";
 
 @Injectable()
 export class SprintTeamService {
@@ -14,63 +11,21 @@ export class SprintTeamService {
 
     constructor(private http: Http) { }
 
-    createSprintTeams(sprint: Iteration, teams: Team[]) {
-        teams.forEach(team => {
-            console.log('Create SprintTeam entity for team ' + team.name);
-            const sprintTeam: any = {
-                team: {
-                  id: team.id
-                },
-                sprint: {
-                    id: sprint.id
-                }
-            };
-            console.log(sprintTeam);
-            this.create(sprintTeam);
-        });
-    }
-
     create(sprintTeam: SprintTeam): Observable<SprintTeam> {
         const copy = this.convert(sprintTeam);
-        console.log(copy);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             const jsonResponse = res.json();
             return this.convertItemFromServer(jsonResponse);
         });
     }
 
-    // update(team: Team): Observable<Team> {
-    //     const copy = this.convert(team);
-    //     return this.http.put(this.resourceUrl, copy).map((res: Response) => {
-    //         const jsonResponse = res.json();
-    //         return this.convertItemFromServer(jsonResponse);
-    //     });
-    // }
-
-    // find(id: string): Observable<Team> {
-    //     return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
-    //         const jsonResponse = res.json();
-    //         return this.convertItemFromServer(jsonResponse);
-    //     });
-    // }
-
-    // query(req?: any): Observable<ResponseWrapper> {
-    //     const options = createRequestOption(req);
-    //     return this.http.get(this.resourceUrl, options)
-    //         .map((res: Response) => this.convertResponse(res));
-    // }
+    update(sprintTeam: SprintTeam): Observable<SprintTeam> {
+        // TODO: implement - necessary for updating people in a SprintTeam
+        return null;
+    }
 
     delete(id: string): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${id}`);
-    }
-
-    private convertResponse(res: Response): ResponseWrapper {
-        const jsonResponse = res.json();
-        const result = [];
-        for (let i = 0; i < jsonResponse.length; i++) {
-            result.push(this.convertItemFromServer(jsonResponse[i]));
-        }
-        return new ResponseWrapper(res.headers, result, res.status);
     }
 
     /**
