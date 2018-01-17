@@ -2,12 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { Subscription } from 'rxjs/Rx';
-
+import { Response } from '@angular/http';
 import { ResponseWrapper } from '../../shared';
 import { Team, TeamService } from '../../entities/team';
 import { Iteration, IterationService } from '../../entities/iteration';
 import { SprintTeam, SprintTeamService } from '../sprint-team'
-import {isNullOrUndefined} from "util";
 
 @Component({
     selector: 'jhi-allocate',
@@ -133,7 +132,31 @@ export class AllocateComponent implements OnInit, OnDestroy {
 
     // create SprintTeam entities for the selected teams in the sprint
     createSprintTeams() {
-        this.selectedTeams.forEach((team) => {
+        const selectedTeamsIds = this.selectedTeams.map((x) =>  x.id);
+        const teamsInSprintIds = this.sprintTeams.map((x) =>  x.team.id);
+        var toCreate = new Array<Team>();
+        var toDelete = new Array<SprintTeam>();
+        var toUpdate = new Array<Team>();
+
+        for (var selTeam of this.selectedTeams) {
+            if (teamsInSprintIds.indexOf(selTeam.id) > -1) {
+                console.log('Selected exists' + selTeam.name );
+                toUpdate.push(selTeam);
+            } else {
+                console.log('Selected will be created ' + selTeam.name);
+                toCreate.push(selTeam);
+            }
+        }
+        for (var sprTeam of this.sprintTeams) {
+            if (selectedTeamsIds.indexOf(sprTeam.team.id) > -1) {
+                console.log('Do nothing' + sprTeam.team.name );
+            } else {
+                console.log('Selected will be created ' + sprTeam.team.name);
+                toDelete.push(sprTeam);
+            }
+        }
+
+        toCreate.forEach((team) => {
             console.log('Create SprintTeam entity for team ' + team.name);
             const sprintTeam: SprintTeam = {
                 sprint: {
@@ -144,8 +167,30 @@ export class AllocateComponent implements OnInit, OnDestroy {
                 }
             };
             this.sprintTeamService.create(sprintTeam).subscribe(
-                (response: SprintTeam) => console.log('Successfully created SprintTeam for ' + response.team.name),
-                (error: any) => console.log('Failed to create SprintTeam: ' + error) // TODO: handle errors?
+                    (response: SprintTeam) => console.log('Successfully created SprintTeam for ' + response.team.name),
+                    (error: any) => console.log('Failed to create SprintTeam: ' + error) // TODO: handle errors?
+                );
+        });
+        toUpdate.forEach((team) => {
+            console.log('Update SprintTeam entity for team ' + team.name);
+            const sprintTeam: SprintTeam = {
+                sprint: {
+                    id: this.selectedSprint.id
+                },
+                team: {
+                    id: team.id
+                }
+            };
+/*            this.sprintTeamService.update(sprintTeam).subscribe(
+                (response: SprintTeam) => console.log('Successfully updated SprintTeam for '),
+                (error: any) => console.log('Failed to update SprintTeam: ') // TODO: handle errors?
+            );*/
+        });
+        toDelete.forEach((spteam) => {
+            console.log('Delete SprintTeam entity for team ' + spteam.team.name);
+            this.sprintTeamService.delete(spteam.id).subscribe(
+                (response: Response) => console.log('Successfully deleted SprintTeam'),
+                (error: any) => console.log('Failed to delete SprintTeam: ' + error) // TODO: handle errors?
             );
         });
         this.jhiAlertService.success(this.selectedSprint.name + ' has been saved successfully.');
