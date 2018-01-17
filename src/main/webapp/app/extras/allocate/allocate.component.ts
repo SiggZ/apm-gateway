@@ -93,6 +93,7 @@ export class AllocateComponent implements OnInit, OnDestroy {
                        this.selectedTeams.push(sprintteam.team);
                     }
                 }
+                this.handleTeamModification();
             },
             (res: ResponseWrapper) => this.onError(res.json)
         );
