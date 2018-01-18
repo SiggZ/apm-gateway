@@ -30,7 +30,7 @@ export class AllocateComponent implements OnInit, OnDestroy {
     ) {};
 
     registerChangeInTeams() {
-        this.eventSubscriber = this.eventManager.subscribe('teamListModification', (response) => {this.handleTeamModification()})
+        this.eventSubscriber = this.eventManager.subscribe('teamListModification', (response) => {this.updateScreen()})
     };
 
     ngOnInit(): void {
@@ -39,12 +39,10 @@ export class AllocateComponent implements OnInit, OnDestroy {
         this.registerChangeInTeams();
         this.sprintControl = new FormControl();
         this.sprintControl.valueChanges.subscribe((event: any) => {
-            console.log('Sprint Selection made');
             this.initializeTeamsForSprint();
         });
         this.teamSelectionControl = new FormControl();
         this.teamSelectionControl.valueChanges.subscribe((event: any) => {
-            console.log('Team Selection made');
         });
     };
 
@@ -70,29 +68,20 @@ export class AllocateComponent implements OnInit, OnDestroy {
     };
 
     initializeTeamsForSprint() {
-        console.log('Change that later');
         this.initializeTeams();
         this.selectedTeams = new Array<any>();
         if (this.selectedSprint != null) {
-            console.log ('MILENA: Selected Sprint was not null!');
             this.sprintTeamsForSprint(this.selectedSprint);
         }
 
     };
 
     sprintTeamsForSprint(sprint: Iteration): void {
-        this.sprintTeamService.query().subscribe(
+        this.sprintTeamService.getBySprint(sprint).subscribe(
             (res: ResponseWrapper) => {
-                var allSprintTeams = res.json;
-                this.sprintTeams = new Array<SprintTeam>();
-                for (var sprintteam of allSprintTeams) {
-                    if (sprint.name === sprintteam.sprint.name) {
-                       console.log(sprintteam.team.name + ' ' + sprintteam.sprint.name);
-                       this.sprintTeams.push(sprintteam);
-                       this.selectedTeams.push(sprintteam.team);
-                    }
-                }
-                this.handleTeamModification();
+                this.sprintTeams = res.json;
+                this.selectedTeams = this.sprintTeams.map((x) => x.team);
+                this.updateScreen();
             },
             (res: ResponseWrapper) => this.onError(res.json)
         );
@@ -113,7 +102,7 @@ export class AllocateComponent implements OnInit, OnDestroy {
         this.selectedTeams = new Array<any>();
     };
 
-    private handleTeamModification() {
+    private updateScreen() {
         const selectedTeamsIds = this.selectedTeams.map((x) =>  x.id);
         this.teamService.query().subscribe(
             (res: ResponseWrapper) => {
@@ -121,7 +110,6 @@ export class AllocateComponent implements OnInit, OnDestroy {
                 this.selectedTeams = new Array<Team>();
                 for (var ateam of this.teams) {
                     if (selectedTeamsIds.indexOf(ateam.id) > -1) {
-                       // console.log(ateam.name);
                         this.selectedTeams.push(ateam);
                     }
                 }

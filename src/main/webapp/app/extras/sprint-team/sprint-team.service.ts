@@ -35,6 +35,11 @@ export class SprintTeamService {
             .map((res: Response) => this.convertResponse(res));
     }
 
+    getBySprint(sprint?: any): Observable<ResponseWrapper> {
+        return this.http.get('/iterationservice/api/sprint-teams-by-sprint/' + sprint.id)
+            .map((res: Response) => this.convertResponse(res));
+    }
+
     private convertResponse(res: Response): ResponseWrapper {
         const jsonResponse = res.json();
         const result = [];
