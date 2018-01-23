@@ -85,11 +85,11 @@ export class AllocateComponent implements OnInit, OnDestroy {
             },
             (res: ResponseWrapper) => this.onError(res.json)
         );
-    }
+    };
 
     getTeamsForSprint(): void {
         this.sprintTeamsForSprint(this.selectedSprint);
-    }
+    };
     onInitIterationsSuccess(iterations: Array<Iteration>): void {
         this.iterations = iterations;
     };
@@ -182,5 +182,5 @@ export class AllocateComponent implements OnInit, OnDestroy {
             );
         });
         this.jhiAlertService.success(this.selectedSprint.name + ' has been saved successfully.');
-    }
+    };
 }

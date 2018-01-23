@@ -1,0 +1,10 @@
+<ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+    <ngb-panel *ngFor="let iterat of iterations">
+        <ng-template ngbPanelTitle>
+            <span>{{iterat.name}}</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+            <jhi-sprint-overview [displayedSprint]="iterat"></jhi-sprint-overview>
+        </ng-template>
+    </ngb-panel>
+</ngb-accordion>

@@ -5,10 +5,17 @@ import { GatewaySharedModule } from '../shared';
 
 import { HOME_ROUTE, HomeComponent, ALLOCATE_ROUTE  } from './';
 import {AllocateComponent} from '../extras/allocate/allocate.component';
-import {MatButtonModule, MatCardModule, MatFormFieldModule, MatOptionModule, MatSelectModule} from '@angular/material';
+import {
+    MatButtonModule, MatCardModule, MatFormFieldModule, MatGridListModule, MatOptionModule,
+    MatSelectModule
+} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
+import {TeamOverviewComponent} from '../components/team-overview/team-overview.component';
+import {PersonViewComponent} from '../components/person-view/person-view.component';
+import {SprintOverviewComponent} from '../components/sprint-overview/sprint-overview.component';
+import {AllSprintsComponent} from '../components/all-sprints/all-sprints.component';
 
 @NgModule({
     imports: [
@@ -22,11 +29,16 @@ import {CommonModule} from '@angular/common';
         MatSelectModule,
         MatOptionModule,
         MatFormFieldModule,
-        BrowserAnimationsModule
+        MatGridListModule,
+        BrowserAnimationsModule,
     ],
     declarations: [
         HomeComponent,
-        AllocateComponent
+        AllocateComponent,
+        SprintOverviewComponent,
+        TeamOverviewComponent,
+        PersonViewComponent,
+        AllSprintsComponent
     ],
     entryComponents: [
     ],

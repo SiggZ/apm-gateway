@@ -12,10 +12,11 @@ export const HOME_ROUTE: Route = {
     }
 };
 export const ALLOCATE_ROUTE: Route = {
-    path: 'allocate',
+    path: 'plan-sprint',
     component: AllocateComponent,
     data: {
         authorities: [],
-        pageTitle: 'Allocation Page'
+        pageTitle: 'Sprint Planning'
     }
 };
+
