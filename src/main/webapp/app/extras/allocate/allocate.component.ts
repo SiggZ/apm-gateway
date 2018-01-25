@@ -6,7 +6,8 @@ import { Response } from '@angular/http';
 import { ResponseWrapper } from '../../shared';
 import { Team, TeamService } from '../../entities/team';
 import { Iteration, IterationService } from '../../entities/iteration';
-import { SprintTeam, SprintTeamService } from '../sprint-team'
+import { SprintTeam, SprintTeamService } from '../sprint-team';
+import { Person, PersonService } from '../../entities/person';
 
 @Component({
     selector: 'jhi-allocate',
@@ -16,6 +17,7 @@ export class AllocateComponent implements OnInit, OnDestroy {
     eventSubscriber: Subscription;
     selectedSprint: Iteration;
     selectedTeams: Array<Team>;
+    people: Array<Person>;
     teams: Array<Team>;
     iterations: Array<Iteration>;
     sprintControl: FormControl;
@@ -25,6 +27,7 @@ export class AllocateComponent implements OnInit, OnDestroy {
         private teamService: TeamService,
         private iterationService: IterationService,
         private sprintTeamService: SprintTeamService,
+        private personService: PersonService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager
     ) {};
@@ -73,6 +76,21 @@ export class AllocateComponent implements OnInit, OnDestroy {
         if (this.selectedSprint != null) {
             this.sprintTeamsForSprint(this.selectedSprint);
         }
+
+    };
+
+    addPeopleToSprintTeam(sprteam: SprintTeam) {
+        this.personService.query().subscribe(
+            (res: ResponseWrapper) => {
+                this.people = res.json;
+                sprteam.persons = new Array<Person>();
+                for (var i = 0; i < 5; i++) {
+                    sprteam.persons.push(this.people[i]);
+                }
+
+            },
+                    (res: ResponseWrapper) => this.onError(res.json)
+        );
 
     };
 
@@ -146,7 +164,7 @@ export class AllocateComponent implements OnInit, OnDestroy {
 
         toCreate.forEach((team) => {
             console.log('Create SprintTeam entity for team ' + team.name);
-            const sprintTeam: SprintTeam = {
+            var sprintTeam: SprintTeam = {
                 sprint: {
                     id: this.selectedSprint.id
                 },
@@ -154,11 +172,23 @@ export class AllocateComponent implements OnInit, OnDestroy {
                     id: team.id
                 }
             };
-            this.sprintTeamService.create(sprintTeam).subscribe(
-                    (response: SprintTeam) => console.log('Successfully created SprintTeam for ' + response.team.name),
-                    (error: any) => console.log('Failed to create SprintTeam: ' + error) // TODO: handle errors?
-                );
-        });
+            this.personService.query().subscribe(
+                (res: ResponseWrapper) => {
+                    this.people = res.json;
+                    sprintTeam.persons = new Array<Person>();
+                    for (var i = 0; i < 5; i++) {
+                        sprintTeam.persons.push(this.people[i]);
+                        console.log(this.people[i].name + " " + this.people[i].surname );
+
+                    }
+                    this.sprintTeamService.create(sprintTeam).subscribe(
+                        (response: SprintTeam) => console.log('Successfully created SprintTeam for ' + response.team.name),
+                        (error: any) => console.log('Failed to create SprintTeam: ' + error) // TODO: handle errors?
+                    );
+
+                },
+                (res: ResponseWrapper) => this.onError(res.json)
+            ); });
         toUpdate.forEach((team) => {
             console.log('Update SprintTeam entity for team ' + team.name);
             const sprintTeam: SprintTeam = {

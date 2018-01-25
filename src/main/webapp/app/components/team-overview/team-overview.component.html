@@ -1,10 +1,17 @@
 <div class="container">
-    <mat-card>
-        <mat-card-title>{{sprintTeam.team.name}}</mat-card-title>
-        <mat-grid-list cols="4">
-            <mat-grid-tile *ngFor="let person of sprintTeam.persons">
-                <jhi-person [person]="person"></jhi-person>
-            </mat-grid-tile>
-        </mat-grid-list>
+    <mat-card (click)="onClick()">
+        <mat-card-header>
+            <mat-card-title>{{sprintTeam.team.name}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-grid-list cols="6"  rowHeight="120px" gutterSize="4px" >
+                <mat-grid-tile *ngFor="let person of sprintTeam.persons"  [style.border-top]="'1px dashed #ddd'" [style.border-bottom]="'1px dashed #ddd'" [style.border-left]="'1px dashed #ddd'" [style.border-right]="'1px dashed #ddd'">
+                    <jhi-person [person]="person"></jhi-person>
+                </mat-grid-tile>
+                <mat-grid-tile  [style.border-top]="'1px dashed #ddd'" [style.border-bottom]="'1px dashed #ddd'" [style.border-left]="'1px dashed #ddd'"  [style.border-right]="'1px dashed #ddd'">
+                    <mat-card><mat-card-header>Capacity: 55</mat-card-header><mat-card-content></mat-card-content></mat-card>
+                </mat-grid-tile>
+           </mat-grid-list>
+        </mat-card-content>
     </mat-card>
 </div>

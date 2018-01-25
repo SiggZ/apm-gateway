@@ -20,8 +20,11 @@ export class TeamOverviewComponent implements OnInit {
 
     constructor(
         private jhiAlertService: JhiAlertService,
+        private personService: PersonService
     ) {};
-
     ngOnInit(): void {
     };
+    onClick() {
+        console.log('Team View Component Click');
+    }
 }

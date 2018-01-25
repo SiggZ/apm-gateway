@@ -7,7 +7,7 @@ import { HOME_ROUTE, HomeComponent, ALLOCATE_ROUTE  } from './';
 import {AllocateComponent} from '../extras/allocate/allocate.component';
 import {
     MatButtonModule, MatCardModule, MatFormFieldModule, MatGridListModule, MatOptionModule,
-    MatSelectModule
+    MatSelectModule, MatListModule
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -30,6 +30,7 @@ import {AllSprintsComponent} from '../components/all-sprints/all-sprints.compone
         MatOptionModule,
         MatFormFieldModule,
         MatGridListModule,
+        MatListModule,
         BrowserAnimationsModule,
     ],
     declarations: [

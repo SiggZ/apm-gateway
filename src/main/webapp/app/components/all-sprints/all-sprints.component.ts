@@ -21,6 +21,7 @@ export class AllSprintsComponent implements OnInit {
     ngOnInit(): void {
         this.initializeIterations();
     };
+    // start date less than today and sort by date
     initializeIterations(): void {
         this.iterationService.query().subscribe(
             (res: ResponseWrapper) => this.iterations = res.json,

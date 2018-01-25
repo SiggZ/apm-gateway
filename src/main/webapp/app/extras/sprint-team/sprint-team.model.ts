@@ -8,7 +8,7 @@ export class SprintTeam implements BaseEntity {
         public id?: string,
         public sprint?: Iteration,
         public team?: Team,
-        public persons?: Person[]
+        public persons?: any[]
     ) {
     }
 }

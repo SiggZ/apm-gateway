@@ -38,4 +38,7 @@ export class SprintOverviewComponent implements OnInit {
     private onError(error): void {
         this.jhiAlertService.error(error.message, null, null);
     };
+    onClick() {
+        console.log('Sprint View Component Click');
+    }
 }
