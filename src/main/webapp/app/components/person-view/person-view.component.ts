@@ -20,7 +20,6 @@ export class PersonViewComponent implements OnInit {
         this.personService.find(persobj.id).subscribe((pers) => {
             this.realPerson = pers;
             this.name = this.realPerson.name + ' ' + this.realPerson.surname;
-            console.log("Person view " + this.name);
         });
     }
 

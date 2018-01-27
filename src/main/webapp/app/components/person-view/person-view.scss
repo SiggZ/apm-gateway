@@ -1,3 +1,18 @@
 p {
     margin-top: 30px;
 }
+
+$mat-card-default-padding: 24px !default;
+$mat-card-mobile-padding: 24px 16px !default;
+$mat-card-border-radius: 2px !default;
+$mat-card-header-size: 40px !default;
+
+.mat-card-md-image {
+    height: calc(60px);
+    width: auto;
+}
+
+.title-text {
+    font-size: 12px;
+    margin-top: 10px;
+}

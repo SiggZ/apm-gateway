@@ -5,11 +5,28 @@
         </mat-card-header>
         <mat-card-content>
             <mat-grid-list cols="6"  rowHeight="120px" gutterSize="4px" >
-                <mat-grid-tile *ngFor="let person of sprintTeam.persons"  [style.border-top]="'1px dashed #ddd'" [style.border-bottom]="'1px dashed #ddd'" [style.border-left]="'1px dashed #ddd'" [style.border-right]="'1px dashed #ddd'">
-                    <jhi-person [person]="person"></jhi-person>
+                <mat-grid-tile *ngFor="let num of [0,1,2,3,4]; let i = index">
+                    <div *ngIf="i < 3 && sprintTeam.persons.length > i" >
+                        <jhi-person [person]="sprintTeam.persons[i]"></jhi-person>
+                    </div>
+                    <div *ngIf="i < 3 && sprintTeam.persons.length <= i" >
+                          <jhi-person [person]="sprintTeam.persons[i]"></jhi-person>
+                     </div>
+
+                    <div *ngIf="i == 3" >
+                        <mat-card>
+                            <img mat-card-sm-image src="../../../content/images/dot-dot-dot.gif">
+                        </mat-card>
+                    </div>
+                    <div *ngIf="i == 4" >
+                        Capacity: 55
+
+                    </div>
                 </mat-grid-tile>
-                <mat-grid-tile  [style.border-top]="'1px dashed #ddd'" [style.border-bottom]="'1px dashed #ddd'" [style.border-left]="'1px dashed #ddd'"  [style.border-right]="'1px dashed #ddd'">
-                    <mat-card><mat-card-header>Capacity: 55</mat-card-header><mat-card-content></mat-card-content></mat-card>
+                <mat-grid-tile>
+                    <mat-card>
+                        <img mat-card-sm-image src="../../../content/images/show-more.png">
+                    </mat-card>
                 </mat-grid-tile>
            </mat-grid-list>
         </mat-card-content>
