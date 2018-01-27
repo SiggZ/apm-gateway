@@ -24,8 +24,12 @@ export class AllSprintsComponent implements OnInit {
     // start date less than today and sort by date
     initializeIterations(): void {
         this.iterationService.query().subscribe(
-            (res: ResponseWrapper) => this.iterations = res.json,
-            (res: ResponseWrapper) => this.onError(res.json)
+            (res: ResponseWrapper) => {
+                const unfilteredIterations = res.json;
+                const currentDate = new Date();
+                this.iterations = unfilteredIterations.filter((x) => currentDate >= x.start);
+            },
+                    (res: ResponseWrapper) => this.onError(res.json)
         );
     };
     private onError(error): void {
