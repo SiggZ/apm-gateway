@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { Subscription } from 'rxjs/Rx';
 import { Iteration, IterationService } from '../../entities/iteration';
-import { SprintTeam, SprintTeamService } from '../../extras/sprint-team'
 import {ResponseWrapper} from '../../shared';
 
 @Component({
@@ -11,15 +10,22 @@ import {ResponseWrapper} from '../../shared';
 
 })
 
-export class AllSprintsComponent implements OnInit {
+export class AllSprintsComponent implements OnInit, OnDestroy {
     eventSubscriber: Subscription;
     iterations: Array<Iteration>;
+    sprintId: any;
     constructor(
         private iterationService: IterationService,
         private jhiAlertService: JhiAlertService,
+        private eventManager: JhiEventManager
     ) {};
     ngOnInit(): void {
         this.initializeIterations();
+        this.eventSubscriber = this.eventManager.subscribe('iterationListModification', (response) => {this.initializeIterations()})
+
+    };
+    ngOnDestroy() {
+        this.eventManager.destroy(this.eventSubscriber);
     };
     // start date less than today and sort by date
     initializeIterations(): void {
@@ -32,6 +38,7 @@ export class AllSprintsComponent implements OnInit {
                     (res: ResponseWrapper) => this.onError(res.json)
         );
     };
+
     private onError(error): void {
         this.jhiAlertService.error(error.message, null, null);
     };
