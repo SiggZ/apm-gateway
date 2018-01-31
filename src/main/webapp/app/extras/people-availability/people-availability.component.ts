@@ -11,14 +11,14 @@ import {UserModalService} from '../../admin/user-management/user-modal.service';
 import {UserMgmtDeleteDialogComponent} from '../../admin/user-management/user-management-delete-dialog.component';
 
 @Component({
-    selector: 'jhi-team-overview',
-    templateUrl: './team-overview.component.html',
+    selector: 'jhi-people-availability',
+    templateUrl: './people-availability.component.html',
     styleUrls: [
-        './team-overview.scss'
+        './people-availability.scss'
     ]
 })
 
-export class TeamOverviewComponent implements OnInit {
+export class PeopleAvailabilityComponent implements OnInit {
     @Input() sprintTeam: SprintTeam;
     people: Array<Person>;
     routeSub: any;
@@ -33,8 +33,4 @@ export class TeamOverviewComponent implements OnInit {
     ) {};
     ngOnInit(): void {
     };
-    onClick() {
-        console.log('Team View Component Click');
-        this.router.navigate(['/people-availability']);
-    }
 }

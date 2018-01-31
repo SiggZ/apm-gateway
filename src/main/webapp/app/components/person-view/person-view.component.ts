@@ -24,6 +24,8 @@ export class PersonViewComponent implements OnInit {
     }
 
     ngOnInit() {
+        if (this.person ! = undefined) {
         this.parsePerson(this.person);
+        }
     }
 }

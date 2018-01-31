@@ -83,9 +83,9 @@ export class AllocateComponent implements OnInit, OnDestroy {
         this.personService.query().subscribe(
             (res: ResponseWrapper) => {
                 this.people = res.json;
-                sprteam.persons = new Array<Person>();
+                sprteam.sprintTeamPersons = new Array<Person>();
                 for (var i = 0; i < 5; i++) {
-                    sprteam.persons.push(this.people[i]);
+                    sprteam.sprintTeamPersons.push(this.people[i]);
                 }
 
             },
@@ -174,13 +174,19 @@ export class AllocateComponent implements OnInit, OnDestroy {
             };
             this.personService.query().subscribe(
                 (res: ResponseWrapper) => {
+                    this.people =  new Array<Person>();
                     this.people = res.json;
-                    sprintTeam.persons = new Array<Person>();
-                    for (var i = 0; i < 5; i++) {
-                        sprintTeam.persons.push(this.people[i]);
-                        console.log(this.people[i].name + " " + this.people[i].surname );
-
+                    sprintTeam.sprintTeamPersons = new Array<any>();
+ /*                   for (var i = 0; i < 5; i++) {
+                        if (i < this.people.length) {
+                            var sprintTeamPerson: any = {
+                                id: this.people[i].id
+                            }
+                            sprintTeam.sprintTeamPersons.push(sprintTeamPerson);
+                            console.log(this.people[i].name + ' '  + this.people[i].surname );
+                        }
                     }
+                   */
                     this.sprintTeamService.create(sprintTeam).subscribe(
                         (response: SprintTeam) => console.log('Successfully created SprintTeam for ' + response.team.name),
                         (error: any) => console.log('Failed to create SprintTeam: ' + error) // TODO: handle errors?

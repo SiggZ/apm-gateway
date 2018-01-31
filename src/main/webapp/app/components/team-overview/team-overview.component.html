@@ -6,11 +6,11 @@
         <mat-card-content>
             <mat-grid-list cols="6"  rowHeight="120px" gutterSize="4px" >
                 <mat-grid-tile *ngFor="let num of [0,1,2,3,4]; let i = index">
-                    <div *ngIf="i < 3 && sprintTeam.persons.length > i" >
-                        <jhi-person [person]="sprintTeam.persons[i]"></jhi-person>
+                    <div *ngIf="i < 3 && sprintTeam.sprintTeamPersons.length > i" >
+                        <jhi-person [person]="sprintTeam.sprintTeamPersons[i]"></jhi-person>
                     </div>
-                    <div *ngIf="i < 3 && sprintTeam.persons.length <= i" >
-                          <jhi-person [person]="sprintTeam.persons[i]"></jhi-person>
+                    <div *ngIf="i < 3 && sprintTeam.sprintTeamPersons.length <= i" >
+                          <jhi-person [person]="sprintTeam.sprintTeamPersons[i]"></jhi-person>
                      </div>
 
                     <div *ngIf="i == 3" >
