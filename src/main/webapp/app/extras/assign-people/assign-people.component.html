@@ -1,0 +1,33 @@
+
+<div >
+
+
+Assign People to Team
+
+
+
+
+</div>
+
+
+    <div >
+        <div >
+            <mat-card-title *ngFor="let team of teams" [value]="team">
+                {{team.name}}
+            </mat-card-title>
+            <form>
+                <mat-form-field>
+                    <mat-select placeholder="Select People" [(ngModel)]="selectedPeople" [formControl]="personSelectionControl" name="thePeople" multiple>
+                        <mat-option *ngFor="let Person of people" [value]="Person">
+                            {{Person.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </form>
+            <button mat-raised-button color="primary"  data-toggle="tooltip" data-placement="top" title="Assign People to Team" >Save</button>
+
+        </div>
+
+
+
+    </div>

@@ -30,7 +30,7 @@
                         <mat-card-subtitle [hidden]="!selectedSprint || selectedTeams.length == 0">Selected:</mat-card-subtitle>
                         <tr *ngFor="let team of selectedTeams ;trackBy: trackId">
                             <td>
-                                    <a class="nav-link" [routerLink]="['/', { outlets: { popup: 'team/'+ team.id + '/edit'} }]" routerLinkActive="active">
+                                    <a class="nav-link" [routerLink]="['../assign-people' ]">
                                         <span>{{team.name}}</span>
                                     </a>
                             </td>
