@@ -172,7 +172,13 @@ export class AllocateComponent implements OnInit, OnDestroy {
                     id: team.id
                 }
             };
-            this.personService.query().subscribe(
+            sprintTeam.sprintTeamPersons = new Array<any>();
+
+            this.sprintTeamService.create(sprintTeam).subscribe(
+                (response: SprintTeam) => console.log('Successfully created SprintTeam for ' + response.team.name),
+                (error: any) => console.log('Failed to create SprintTeam: ' + error) // TODO: handle errors?
+            );
+/*            this.personService.query().subscribe(
                 (res: ResponseWrapper) => {
                     this.people =  new Array<Person>();
                     this.people = res.json;
@@ -198,7 +204,8 @@ export class AllocateComponent implements OnInit, OnDestroy {
 
                 },
                 (res: ResponseWrapper) => this.onError(res.json)
-            ); });
+            ); */
+        });
         toUpdate.forEach((team) => {
             console.log('Update SprintTeam entity for team ' + team.name);
             const sprintTeam: SprintTeam = {
