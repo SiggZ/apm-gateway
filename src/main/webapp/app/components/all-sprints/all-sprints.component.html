@@ -1,0 +1,18 @@
+<ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+    <ngb-panel *ngFor="let iterat of iterations">
+        <ng-template ngbPanelTitle>
+            <span>{{iterat.name}}</span>
+            <button type="submit"
+                class="btn btn-primary float-right" [routerLink]="['/', { outlets: { popup: 'iteration/'+ iterat.id + '/copy'} }]"
+                    [ngbTooltip]="addTooltip" placement="bottom">
+                <span class="fa fa-plus"></span>
+                <ng-template #addTooltip>
+                    <span >Copy Sprint</span>
+                </ng-template>
+            </button>
+        </ng-template>
+        <ng-template ngbPanelContent>
+            <jhi-sprint-overview [displayedSprint]="iterat"></jhi-sprint-overview>
+        </ng-template>
+    </ngb-panel>
+</ngb-accordion>

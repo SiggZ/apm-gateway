@@ -1,0 +1,34 @@
+<div class="container">
+    <mat-card (click)="onClick()">
+        <mat-card-header>
+            <mat-card-title>{{sprintTeam.team.name}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-grid-list cols="6"  rowHeight="120px" gutterSize="4px" >
+                <mat-grid-tile *ngFor="let num of [0,1,2,3,4]; let i = index">
+                    <div *ngIf="i < 3 && sprintTeam.sprintTeamPersons.length > i" >
+                        <jhi-person [person]="sprintTeam.sprintTeamPersons[i]"></jhi-person>
+                    </div>
+                    <div *ngIf="i < 3 && sprintTeam.sprintTeamPersons.length <= i" >
+                          <div></div>
+                     </div>
+
+                    <div *ngIf="i == 3" >
+                        <mat-card>
+                            <img mat-card-sm-image src="../../../content/images/dot-dot-dot.gif">
+                        </mat-card>
+                    </div>
+                    <div *ngIf="i == 4" >
+                        Capacity: 55
+
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-card mat-ripple="relative">
+                        <img mat-card-sm-image src="../../../content/images/show-more.png">
+                    </mat-card>
+                </mat-grid-tile>
+           </mat-grid-list>
+        </mat-card-content>
+    </mat-card>
+</div>

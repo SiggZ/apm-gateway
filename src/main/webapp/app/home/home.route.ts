@@ -2,6 +2,7 @@ import { Route } from '@angular/router';
 
 import { HomeComponent } from './';
 import {AllocateComponent} from '../extras/allocate/allocate.component';
+import {PeopleAvailabilityComponent} from '../extras/people-availability/people-availability.component';
 
 export const HOME_ROUTE: Route = {
     path: '',
@@ -12,10 +13,19 @@ export const HOME_ROUTE: Route = {
     }
 };
 export const ALLOCATE_ROUTE: Route = {
-    path: 'allocate',
+    path: 'plan-sprint',
     component: AllocateComponent,
     data: {
         authorities: [],
-        pageTitle: 'Allocation Page'
+        pageTitle: 'Sprint Planning'
+    }
+};
+
+export const DISPLAY_PEOPLE_AVAILABILITY: Route = {
+    path: 'people-availability',
+    component: PeopleAvailabilityComponent,
+    data: {
+        authorities: [],
+        pageTitle: 'People Availability'
     }
 };

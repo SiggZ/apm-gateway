@@ -3,17 +3,25 @@ import { RouterModule } from '@angular/router';
 
 import { GatewaySharedModule } from '../shared';
 
-import { HOME_ROUTE, HomeComponent, ALLOCATE_ROUTE  } from './';
+import { HOME_ROUTE, HomeComponent, ALLOCATE_ROUTE, DISPLAY_PEOPLE_AVAILABILITY  } from './';
 import {AllocateComponent} from '../extras/allocate/allocate.component';
-import {MatButtonModule, MatCardModule, MatFormFieldModule, MatOptionModule, MatSelectModule} from '@angular/material';
+import {
+    MatButtonModule, MatCardModule, MatFormFieldModule, MatGridListModule, MatOptionModule,
+    MatSelectModule, MatListModule
+} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
+import {TeamOverviewComponent} from '../components/team-overview/team-overview.component';
+import {PersonViewComponent} from '../components/person-view/person-view.component';
+import {SprintOverviewComponent} from '../components/sprint-overview/sprint-overview.component';
+import {AllSprintsComponent} from '../components/all-sprints/all-sprints.component';
+import {PeopleAvailabilityComponent} from '../extras/people-availability/people-availability.component';
 
 @NgModule({
     imports: [
         GatewaySharedModule,
-        RouterModule.forRoot([ HOME_ROUTE, ALLOCATE_ROUTE], { useHash: true }),
+        RouterModule.forRoot([ HOME_ROUTE, ALLOCATE_ROUTE, DISPLAY_PEOPLE_AVAILABILITY], { useHash: true }),
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
@@ -22,11 +30,18 @@ import {CommonModule} from '@angular/common';
         MatSelectModule,
         MatOptionModule,
         MatFormFieldModule,
-        BrowserAnimationsModule
+        MatGridListModule,
+        MatListModule,
+        BrowserAnimationsModule,
     ],
     declarations: [
         HomeComponent,
-        AllocateComponent
+        AllocateComponent,
+        SprintOverviewComponent,
+        TeamOverviewComponent,
+        PersonViewComponent,
+        PeopleAvailabilityComponent,
+        AllSprintsComponent
     ],
     entryComponents: [
     ],

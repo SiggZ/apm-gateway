@@ -1,102 +1,12 @@
 <div class="row">
     <div class="col-md-9">
         <h1 class="display-4">Welcome to Zulu!</h1>
-
         <div [ngSwitch]="isAuthenticated()">
             <div class="alert alert-success" *ngSwitchCase="true">
                 <span *ngIf="account"> You are logged in as user "{{account.login}}". </span>
             </div>
             <jhi-alert></jhi-alert>
-            <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
-            <ngb-panel title="Sprint 2">
-                <ng-template ngbPanelContent>
-                    <div class="container">
-
-                    <table  cellpadding="30"cellspacing="5" border="0">
-                        <tbody>
-                        <td>
-                            <tr align-centered>Team A</tr>
-                        </td>
-                        <td>
-                            <tr>65 SP</tr>
-                            <tr>70 PD</tr>
-                        </td>
-                        <td>
-                            <tr align-centered> <img src="../../content/images/if_2_2698682.png" alt="" border=3 height=30 width=30> </img> </tr>
-                        </td>
-                        <td>
-                            <tr align-centered> <img src="../../content/images/if_5_2716418.png" alt="" border=3 height=30 width=30> </img>  </tr>
-                        </td>
-                        <td>
-                            <tr align-centered> <img src="../../content/images/if_8_2698685.png" alt="" border=3 height=30 width=30> </img>  </tr>
-                        </td>
-                        <td>
-                            <tr align-centered> ... </tr>
-                        </td>
-                        <td>
-                            <tr align-centered> Team Members 6 </tr>
-                        </td>
-
-                    </table>
-                </div>
-                    <div class="container">
-
-                        <table  cellpadding="30"cellspacing="5" border="0">
-                            <tbody>
-                            <td>
-                                <tr align-centered>Team C</tr>
-                            </td>
-                            <td>
-                                <tr>57 SP</tr>
-                                <tr>68 PD</tr>
-                            </td>
-                            <td>
-                                <tr align-centered> <img src="../../content/images/if_9_2698684.png" alt="" border=3 height=30 width=30> </img> </tr>
-                            </td>
-                            <td>
-                                <tr align-centered> <img src="../../content/images/if_8_2698685.png"" alt="" border=3 height=30 width=30> </img>  </tr>
-                            </td>
-                            <td>
-                                <tr align-centered> <img src="../../content/images/if_10_2716421.png" alt="" border=3 height=30 width=30> </img>  </tr>
-                            </td>
-                            <td>
-                                <tr align-centered> ... </tr>
-                            </td>
-                            <td>
-                                <tr align-centered> Team Members 5 </tr>
-                            </td>
-
-                        </table>
-                    </div>
-                </ng-template>
-            </ngb-panel>
-        </ngb-accordion>
-            <ngb-accordion #acc="ngbAccordion">
-                <ngb-panel title="Sprint 1">
-                    <ng-template ngbPanelContent>
-                        <div class="row">
-                            <div class="col-md-11">
-                                <b>Team 1</b>
-                                <ngb-progressbar max="21" [value]="16" [striped]="false"
-                                                 [type]="success" [hidden]="false">
-                                <span>
-                                    11 / Goal: 16
-                                </span>
-                                </ngb-progressbar>
-                                <br/>
-                                <b>Team 2</b>
-                                <ngb-progressbar max="30" [value]="27" [striped]="false"
-                                                 [type]="success" [hidden]="false">
-                                <span>
-                                    27 / Goal: 30
-                                </span>
-                                </ngb-progressbar>
-                            </div>
-
-                        </div>
-                    </ng-template>
-                </ngb-panel>
-            </ngb-accordion>
+            <jhi-all-sprints></jhi-all-sprints>
         </div>
 
     </div>

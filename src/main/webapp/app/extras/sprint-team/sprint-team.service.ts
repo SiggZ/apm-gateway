@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
+import { ResponseWrapper, createRequestOption } from '../../shared';
 
 import { SprintTeam } from './sprint-team.model';
 
@@ -26,6 +27,26 @@ export class SprintTeamService {
 
     delete(id: string): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${id}`);
+    }
+
+    query(req?: any): Observable<ResponseWrapper> {
+        const options = createRequestOption(req);
+        return this.http.get(this.resourceUrl, options)
+            .map((res: Response) => this.convertResponse(res));
+    }
+
+    getBySprint(sprint?: any): Observable<ResponseWrapper> {
+        return this.http.get('/iterationservice/api/sprint-teams-by-sprint/' + sprint.id)
+            .map((res: Response) => this.convertResponse(res));
+    }
+
+    private convertResponse(res: Response): ResponseWrapper {
+        const jsonResponse = res.json();
+        const result = [];
+        for (let i = 0; i < jsonResponse.length; i++) {
+            result.push(this.convertItemFromServer(jsonResponse[i]));
+        }
+        return new ResponseWrapper(res.headers, result, res.status);
     }
 
     /**
