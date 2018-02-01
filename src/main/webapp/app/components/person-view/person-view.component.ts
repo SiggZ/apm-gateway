@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Person, PersonService } from '../../entities/person';
+import {isNullOrUndefined} from "util";
 
 @Component({
     selector: 'jhi-person',
@@ -9,7 +10,7 @@ import { Person, PersonService } from '../../entities/person';
     ]
 })
 export class PersonViewComponent implements OnInit {
-    @Input() person: any;
+    @Input() person = {personId: null};
     @Input() imageSrc: string;
     realPerson: Person;
     name: string;
@@ -17,15 +18,13 @@ export class PersonViewComponent implements OnInit {
         private personService: PersonService,
   ) {};
     parsePerson(persobj: any) {
-        this.personService.find(persobj.id).subscribe((pers) => {
-            this.realPerson = pers;
-            this.name = this.realPerson.name + ' ' + this.realPerson.surname;
-        });
+           this.personService.find(persobj.personId).subscribe((pers) => {
+                this.realPerson = pers;
+                this.name = this.realPerson.name + ' ' + this.realPerson.surname;
+            });
     }
 
     ngOnInit() {
-        if (this.person ! = undefined) {
-        this.parsePerson(this.person);
-        }
+            this.parsePerson(this.person);
     }
 }

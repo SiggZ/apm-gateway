@@ -177,16 +177,20 @@ export class AllocateComponent implements OnInit, OnDestroy {
                     this.people =  new Array<Person>();
                     this.people = res.json;
                     sprintTeam.sprintTeamPersons = new Array<any>();
- /*                   for (var i = 0; i < 5; i++) {
-                        if (i < this.people.length) {
-                            var sprintTeamPerson: any = {
-                                id: this.people[i].id
+                    if ( this.people.length > 0)  {
+                        console.log('ATTENTION!');
+                        for (var i = 0; i < 5; i++) {
+                            if (i < this.people.length) {
+                                console.log('The index i is ' + i);
+                                console.log('The id of the person is ' + this.people[i].id);
+                                var sprintTeamPerson: any = {
+                                    personId:  this.people[i].id
+                                }
+                                sprintTeam.sprintTeamPersons.push(sprintTeamPerson);
+                                console.log(this.people[i].name + ' '  + this.people[i].surname );
                             }
-                            sprintTeam.sprintTeamPersons.push(sprintTeamPerson);
-                            console.log(this.people[i].name + ' '  + this.people[i].surname );
-                        }
+                          }
                     }
-                   */
                     this.sprintTeamService.create(sprintTeam).subscribe(
                         (response: SprintTeam) => console.log('Successfully created SprintTeam for ' + response.team.name),
                         (error: any) => console.log('Failed to create SprintTeam: ' + error) // TODO: handle errors?
