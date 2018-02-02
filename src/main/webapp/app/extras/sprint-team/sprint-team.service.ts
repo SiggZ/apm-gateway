@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
-import { ResponseWrapper, createRequestOption } from '../../shared';
+import {Injectable} from '@angular/core';
+import {Http, Response} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
+import {createRequestOption, ResponseWrapper} from '../../shared';
 
-import { SprintTeam } from './sprint-team.model';
+import {SprintTeam} from './sprint-team.model';
 
 @Injectable()
 export class SprintTeamService {
@@ -38,6 +38,11 @@ export class SprintTeamService {
     getBySprint(sprint?: any): Observable<ResponseWrapper> {
         return this.http.get('/iterationservice/api/sprint-teams-by-sprint/' + sprint.id)
             .map((res: Response) => this.convertResponse(res));
+    }
+
+    getCapacityForSprintTeam(sprintTeamId: string): Observable<number> {
+        return this.http.get(`${this.resourceUrl}/${sprintTeamId}/capacity`)
+            .map((res: Response) => {return JSON.parse(res.json());});
     }
 
     private convertResponse(res: Response): ResponseWrapper {
