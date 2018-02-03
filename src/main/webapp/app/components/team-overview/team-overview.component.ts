@@ -17,6 +17,7 @@ import {UserModalService} from '../../admin';
 export class TeamOverviewComponent implements OnInit {
     @Input() sprintTeam: SprintTeam;
     capacity: string;
+    velocity: string;
     routeSub: any;
     modalRef: NgbModalRef;
 
@@ -31,12 +32,20 @@ export class TeamOverviewComponent implements OnInit {
 
     ngOnInit(): void {
         this.getCapacityForSprintTeam(this.sprintTeam.id);
+        this.getVelocityForSprintTeam(this.sprintTeam.id);
     };
 
     private getCapacityForSprintTeam(sprintTeamId: string): void {
         this.sprintTeamService.getCapacityForSprintTeam(sprintTeamId).subscribe(
             (capacity: number) =>  this.capacity = capacity.toString(),
             () => this.capacity = 'N/A'
+        );
+    }
+
+    private getVelocityForSprintTeam(sprintTeamId: string): void {
+        this.sprintTeamService.getVelocityForSprintTeam(sprintTeamId).subscribe(
+            (velocity: number) =>  this.velocity = velocity.toString(),
+            () => this.velocity = 'N/A'
         );
     }
 
