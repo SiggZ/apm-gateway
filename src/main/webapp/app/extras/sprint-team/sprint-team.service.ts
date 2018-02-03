@@ -45,6 +45,11 @@ export class SprintTeamService {
             .map((res: Response) => {return JSON.parse(res.json());});
     }
 
+    getVelocityForSprintTeam(sprintTeamId: string): Observable<number> {
+        return this.http.get(`${this.resourceUrl}/${sprintTeamId}/velocity`)
+            .map((res: Response) => {return JSON.parse(res.json());});
+    }
+
     private convertResponse(res: Response): ResponseWrapper {
         const jsonResponse = res.json();
         const result = [];
