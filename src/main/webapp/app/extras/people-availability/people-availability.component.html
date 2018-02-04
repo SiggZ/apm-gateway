@@ -1,9 +1,13 @@
-<div class="container">
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title>People availability</mat-card-title>
-        </mat-card-header>
+<div class="col" *ngFor="let stPerson of sprintTeam.sprintTeamPersons">
+    <div class="container">
 
-        </mat-card-content>
-    </mat-card>
+        <mat-grid-list [cols]='stPerson.availableDays.length + 1'  rowHeight="120px" gutterSize="2px" >
+            <mat-grid-tile>
+                <jhi-person [person]="stPerson"></jhi-person>
+            </mat-grid-tile>
+            <mat-grid-tile *ngFor="let availableDay of stPerson.availableDays">
+                X
+            </mat-grid-tile>
+        </mat-grid-list>
+    </div>
 </div>

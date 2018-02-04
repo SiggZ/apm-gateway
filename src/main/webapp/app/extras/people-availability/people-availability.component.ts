@@ -23,7 +23,7 @@ export class PeopleAvailabilityComponent implements OnInit {
     people: Array<Person>;
     routeSub: any;
     modalRef: NgbModalRef;
-
+    daysOfSprint = 16; // hardcoded to be changed later
     constructor(
         private jhiAlertService: JhiAlertService,
         private personService: PersonService,
