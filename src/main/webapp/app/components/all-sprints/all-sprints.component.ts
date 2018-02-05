@@ -43,5 +43,4 @@ export class AllSprintsComponent implements OnInit, OnDestroy {
     private onError(error): void {
         this.jhiAlertService.error(error.message, null, null);
     };
-   
 }
