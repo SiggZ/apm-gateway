@@ -21,7 +21,8 @@ export class AllSprintsComponent implements OnInit, OnDestroy {
     ) {};
     ngOnInit(): void {
         this.initializeIterations();
-        this.eventSubscriber = this.eventManager.subscribe('iterationListModification', (response) => {this.initializeIterations()})
+        this.eventSubscriber = this.eventManager.subscribe('iterationListModification', (response) => {this.initializeIterations()});
+        this.eventSubscriber = this.eventManager.subscribe('authenticationSuccess', (response) => {this.initializeIterations()})
 
     };
     ngOnDestroy() {
@@ -42,4 +43,5 @@ export class AllSprintsComponent implements OnInit, OnDestroy {
     private onError(error): void {
         this.jhiAlertService.error(error.message, null, null);
     };
+   
 }
