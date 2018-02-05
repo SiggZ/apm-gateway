@@ -3,3 +3,10 @@
     display: block;
     position: relative;
 }
+
+.date-grid-tile > figure {
+    position: absolute;
+    left: 5px;
+    background: beige;
+}
+
