@@ -5,7 +5,7 @@
         </mat-card-header>
         <mat-card-content>
             <div *ngIf="sprintTeam.sprintTeamPersons != null">
-                <mat-grid-list cols="6"  rowHeight="120px" gutterSize="4px" >
+                <mat-grid-list cols="6"  rowHeight="140px" >
                     <mat-grid-tile *ngFor="let num of [0,1,2,3,4]; let i = index">
                         <div *ngIf="i < 3 && sprintTeam.sprintTeamPersons.length > i" >
                             <jhi-person [person]="sprintTeam.sprintTeamPersons[i]"></jhi-person>
@@ -15,9 +15,8 @@
                          </div>
 
                         <div *ngIf="i == 3" >
-                            <mat-card>
+
                                 <img mat-card-sm-image src="../../../content/images/dot-dot-dot.gif">
-                            </mat-card>
                         </div>
                         <div *ngIf="i == 4" >
                             <div>
@@ -28,13 +27,18 @@
                             </div>
                         </div>
                     </mat-grid-tile>
-                    <mat-grid-tile>
-                        <mat-card mat-ripple="relative">
-                            <img mat-card-sm-image src="../../../content/images/show-more.png">
-                        </mat-card>
+                    <mat-grid-tile *ngIf="!peopleOverviewVisible">
+                            <img mat-card-sm-image src="../../../content/images/menu.png">
+                    </mat-grid-tile>
+                    <mat-grid-tile *ngIf="peopleOverviewVisible">
+                        <img mat-card-sm-image src="../../../content/images/close.png">
                     </mat-grid-tile>
                 </div>
            </mat-grid-list>
+            <div *ngIf="peopleOverviewVisible" >
+                <jhi-people-availability [sprintTeam]="sprintTeam"></jhi-people-availability>
+            </div>
         </mat-card-content>
     </mat-card>
+
 </div>

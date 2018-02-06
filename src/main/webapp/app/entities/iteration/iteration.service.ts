@@ -43,6 +43,11 @@ export class IterationService {
             .map((res: Response) => this.convertResponse(res));
     }
 
+    getListOfDaysForSprint(id: string): Observable<ResponseWrapper> {
+        return this.http.get(`${this.resourceUrl}/${id}/dayslist`)
+                  .map((res: Response) => this.convertDateResponse(res));
+    }
+
     delete(id: string): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
@@ -56,6 +61,14 @@ export class IterationService {
         return new ResponseWrapper(res.headers, result, res.status);
     }
 
+    private convertDateResponse(res: Response): ResponseWrapper {
+        const jsonResponse = res.json();
+        const result = [];
+        for (let i = 0; i < jsonResponse.length; i++) {
+            result.push(this.dateUtils.convertDateTimeFromServer(jsonResponse[i]));
+        }
+        return new ResponseWrapper(res.headers, result, res.status);
+    }
     /**
      * Convert a returned JSON object to Iteration.
      */

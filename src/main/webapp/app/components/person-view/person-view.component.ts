@@ -12,19 +12,27 @@ import {isNullOrUndefined} from "util";
 export class PersonViewComponent implements OnInit {
     @Input() person = {personId: null};
     @Input() imageSrc: string;
+    @Input() disableAvailability = true;
+
     realPerson: Person;
     name: string;
+    surname: string;
     constructor(
         private personService: PersonService,
   ) {};
     parsePerson(persobj: any) {
            this.personService.find(persobj.personId).subscribe((pers) => {
                 this.realPerson = pers;
-                this.name = this.realPerson.name + ' ' + this.realPerson.surname;
+                this.name = this.realPerson.name;
+                this.surname = this.realPerson.surname;
             });
     }
 
     ngOnInit() {
             this.parsePerson(this.person);
+    }
+    onClick() {
+        if (!this.disableAvailability) {
+        }
     }
 }

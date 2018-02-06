@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {JhiAlertService} from 'ng-jhipster';
 import {PersonService} from '../../entities/person';
 import {SprintTeam, SprintTeamService} from '../../extras/sprint-team'
-import {NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserModalService} from '../../admin';
 
@@ -19,7 +18,7 @@ export class TeamOverviewComponent implements OnInit {
     capacity: string;
     velocity: string;
     routeSub: any;
-    modalRef: NgbModalRef;
+    peopleOverviewVisible = false;
 
     constructor(
         private jhiAlertService: JhiAlertService,
@@ -50,7 +49,10 @@ export class TeamOverviewComponent implements OnInit {
     }
 
     onClick() {
-        console.log('Team View Component Click');
-        this.router.navigate(['/people-availability']);
+        if (this.peopleOverviewVisible === false) {
+            this.peopleOverviewVisible = true;
+        } else {
+            this.peopleOverviewVisible = false;
+        }
     }
 }
