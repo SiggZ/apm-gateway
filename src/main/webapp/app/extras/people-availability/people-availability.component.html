@@ -2,12 +2,13 @@
     <div class="container">
 
 
-        <mat-grid-list [cols]='stPerson.availableDays.length + 1'  rowHeight="120px" gutterSize="2px" >
+        <mat-grid-list [cols]='calenderColumns'  rowHeight="120px" gutterSize="2px" >
             <mat-grid-tile>
                 <jhi-person [person]="stPerson"></jhi-person>
             </mat-grid-tile>
-            <mat-grid-tile  *ngFor="let availableDay of stPerson.availableDays">
-                <mat-card [style.backgroundColor]="'#d4edda'" > {{availableDay  | date:'dd MMM'}}</mat-card>
+            <mat-grid-tile  *ngFor="let dayOfSprint of listOfDays">
+                <mat-card [style.backgroundColor]="personAvailableOnDay(dayOfSprint, stPerson.availableDays)?'#d4edda':'#fff3cd'" >
+                    {{dayOfSprint  | date:'dd MMM'}}</mat-card>
             </mat-grid-tile>
         </mat-grid-list>
     </div>
