@@ -45,7 +45,43 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
         this.eventManager.destroy(this.eventSubscriber);
     };
 
+    addPeopleToSprintTeam(sprteam: SprintTeam) {
+        this.PersonService.query().subscribe(
+            (res: ResponseWrapper) => {
+                this.people = res.json;
+                sprteam.sprintTeamPersons = new Array<Person>();
+                for (var i = 0; i < 5; i++) {
+                    sprteam.sprintTeamPersons.push(this.people[i]);
+                }
 
+            },
+            (res: ResponseWrapper) => this.onError(res.json)
+        );
+
+    };
+    private onError(error): void {
+        this.jhiAlertService.error(error.message, null, null);
+    };
+
+    clearSelectedPeople(): void {
+        this.selectedPeople= new Array<any>();
+    };
+
+    private updateScreen() {
+        const selectedPeopleIds = this.selectedPeople.map((x) =>  x.id);
+        this.PersonService.query().subscribe(
+            (res: ResponseWrapper) => {
+                this.people = res.json;
+                this.selectedPeople = new Array<Person>();
+                for (var aperson of this.people) {
+                    if (selectedPeopleIds.indexOf(aperson.id) > -1) {
+                        this.selectedPeople.push(aperson);
+                    }
+                }
+            },
+            (res: ResponseWrapper) => this.onError(res.json)
+        );
+    };
     // create SprintTeam entities for the selected teams in the sprint
 }
 
