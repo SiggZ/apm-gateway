@@ -1,5 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import {MatDatepickerModule, MatNativeDateModule} from '@angular/material';
+
 
 import { GatewaySharedModule } from '../../shared';
 import {
@@ -27,7 +29,9 @@ const ENTITY_STATES = [
     imports: [
         GatewaySharedModule,
         NgbModule,
-        RouterModule.forRoot(ENTITY_STATES, { useHash: true })
+        RouterModule.forRoot(ENTITY_STATES, { useHash: true }),
+        MatDatepickerModule,
+        MatNativeDateModule
     ],
     declarations: [
         IterationComponent,

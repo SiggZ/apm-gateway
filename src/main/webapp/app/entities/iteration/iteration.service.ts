@@ -72,11 +72,24 @@ export class IterationService {
      * Convert a Iteration to a JSON which can be sent to the server.
      */
     private convert(iteration: Iteration): Iteration {
-        const copy: Iteration = Object.assign({}, iteration);
-        copy.start = this.dateUtils
-            .convertLocalDateToServer(iteration.start);
-        copy.end = this.dateUtils
-            .convertLocalDateToServer(iteration.end);
+        const copy: any = Object.assign({}, iteration);
+        copy.start = this.convertDateToString(iteration.start);
+        copy.end = this.convertDateToString(iteration.end);
         return copy;
+    }
+
+    /**
+     * Convert a Date to string with format YYYY-MM-DD
+     */
+    private convertDateToString(date: Date): string {
+        var month: string = (date.getMonth() + 1).toString();
+        if (month.length === 1) {
+            month = '0' + month;
+        }
+        var day: string = date.getDate().toString();
+        if (day.length === 1) {
+            day = '0' + day;
+        }
+        return date.getFullYear() + '-' + month + '-' + day;
     }
 }

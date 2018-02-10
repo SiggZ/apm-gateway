@@ -26,20 +26,6 @@ export class IterationPopupService {
 
             if (id) {
                 this.iterationService.find(id).subscribe((iteration) => {
-                    if (iteration.start) {
-                        iteration.start = {
-                            year: iteration.start.getFullYear(),
-                            month: iteration.start.getMonth() + 1,
-                            day: iteration.start.getDate()
-                        };
-                    }
-                    if (iteration.end) {
-                        iteration.end = {
-                            year: iteration.end.getFullYear(),
-                            month: iteration.end.getMonth() + 1,
-                            day: iteration.end.getDate()
-                        };
-                    }
                     this.ngbModalRef = this.iterationModalRef(component, iteration);
                     resolve(this.ngbModalRef);
                 });

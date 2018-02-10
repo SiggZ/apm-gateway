@@ -266,4 +266,9 @@ input::-webkit-inner-spin-button {
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
+// moves the datepicker to be in front of the popup window (e.g. in edit/create sprint dialog)
+.cdk-overlay-container {
+    z-index: 3000;
+}
+
 /* jhipster-needle-scss-add-main JHipster will add new css style */

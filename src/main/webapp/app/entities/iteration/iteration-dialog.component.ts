@@ -47,8 +47,10 @@ export class IterationDialogComponent implements OnInit {
     }
 
     private subscribeToSaveResponse(result: Observable<Iteration>) {
-        result.subscribe((res: Iteration) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError());
+        result.subscribe(
+            (res: Iteration) => this.onSaveSuccess(res),
+            (res: Response) => this.onSaveError()
+        );
     }
 
     private onSaveSuccess(result: Iteration) {

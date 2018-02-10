@@ -25,17 +25,21 @@
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_start">Start</label>
-            <div class="input-group">
-                <input id="field_start" type="date" class="form-control" name="start" ngbDatepicker  #startDp="ngbDatepicker" [(ngModel)]="iteration.start"
-                />
-            </div>
+            <mat-form-field class="input-group">
+                <input id="field_start" type="text" class="form-control" name="start" [(ngModel)]="iteration.start"
+                       [matDatepicker]="picker_start" />
+                <mat-datepicker-toggle matSuffix [for]="picker_start"></mat-datepicker-toggle>
+                <mat-datepicker #picker_start></mat-datepicker>
+            </mat-form-field>
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_end">End</label>
-            <div class="input-group">
-                <input id="field_end" type="date" class="form-control" name="end" ngbDatepicker  #endDp="ngbDatepicker" [(ngModel)]="iteration.end"
-                />
-            </div>
+            <mat-form-field class="input-group">
+                <input id="field_end" type="text" class="form-control" name="end" [(ngModel)]="iteration.end"
+                       [matDatepicker]="picker_end" />
+                <mat-datepicker-toggle matSuffix [for]="picker_end"></mat-datepicker-toggle>
+                <mat-datepicker #picker_end></mat-datepicker>
+            </mat-form-field>
         </div>
 
     </div>
