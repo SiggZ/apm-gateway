@@ -1,9 +1,13 @@
 
 <div *ngIf="person">
-    <h2><span>Person</span> {{person.id}}</h2>
+    <h2>Person details</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+            <span>{{person.id}}</span>
+        </dd>
         <dt><span>Name</span></dt>
         <dd>
             <span>{{person.name}}</span>
@@ -23,6 +27,10 @@
         <dt><span>Project Availability</span></dt>
         <dd>
             <span>{{person.projectAvailability}}</span>
+        </dd>
+        <dt><span>Sprint Availability</span></dt>
+        <dd>
+            <span>{{person.sprintAvailability}}</span>
         </dd>
         <dt><span>Ahcr</span></dt>
         <dd>

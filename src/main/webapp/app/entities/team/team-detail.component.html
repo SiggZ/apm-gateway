@@ -1,9 +1,13 @@
 
 <div *ngIf="team">
-    <h2><span>Team</span> {{team.id}}</h2>
+    <h2>Team details</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+            <span>{{team.id}}</span>
+        </dd>
         <dt><span>Name</span></dt>
         <dd>
             <span>{{team.name}}</span>

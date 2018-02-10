@@ -8,6 +8,7 @@ export class Person implements BaseEntity {
         public location?: string,
         public grade?: string,
         public projectAvailability?: number,
+        public sprintAvailability?: number,
         public ahcr?: number,
     ) {
     }

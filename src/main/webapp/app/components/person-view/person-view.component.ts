@@ -1,6 +1,5 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { Person, PersonService } from '../../entities/person';
-import {isNullOrUndefined} from "util";
+import {Component, Input, OnInit} from '@angular/core';
+import {Person, PersonService} from '../../entities/person';
 
 @Component({
     selector: 'jhi-person',

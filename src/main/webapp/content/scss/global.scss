@@ -255,4 +255,15 @@ only screen and (                min-resolution: 2dppx) {
     }
 }
 
+/* ==========================================================================
+others
+========================================================================== */
+
+// removes the arrows from the input fields (with type number or date)
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
 /* jhipster-needle-scss-add-main JHipster will add new css style */

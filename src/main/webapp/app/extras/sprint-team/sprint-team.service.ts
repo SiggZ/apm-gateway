@@ -42,12 +42,12 @@ export class SprintTeamService {
 
     getCapacityForSprintTeam(sprintTeamId: string): Observable<number> {
         return this.http.get(`${this.resourceUrl}/${sprintTeamId}/capacity`)
-            .map((res: Response) => {return JSON.parse(res.json());});
+            .map((res: Response) => JSON.parse(res.json()));
     }
 
     getVelocityForSprintTeam(sprintTeamId: string): Observable<number> {
         return this.http.get(`${this.resourceUrl}/${sprintTeamId}/velocity`)
-            .map((res: Response) => {return JSON.parse(res.json());});
+            .map((res: Response) => JSON.parse(res.json()));
     }
 
     private convertResponse(res: Response): ResponseWrapper {

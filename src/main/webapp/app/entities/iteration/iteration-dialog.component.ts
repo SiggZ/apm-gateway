@@ -1,14 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Response} from '@angular/http';
 
-import { Observable } from 'rxjs/Rx';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import {Observable} from 'rxjs/Rx';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {JhiAlertService, JhiEventManager} from 'ng-jhipster';
 
-import { Iteration } from './iteration.model';
-import { IterationPopupService } from './iteration-popup.service';
-import { IterationService } from './iteration.service';
+import {Iteration} from './iteration.model';
+import {IterationPopupService} from './iteration-popup.service';
+import {IterationService} from './iteration.service';
 
 @Component({
     selector: 'jhi-iteration-dialog',
@@ -18,8 +18,6 @@ export class IterationDialogComponent implements OnInit {
 
     iteration: Iteration;
     isSaving: boolean;
-    startDp: any;
-    endDp: any;
 
     constructor(
         public activeModal: NgbActiveModal,
