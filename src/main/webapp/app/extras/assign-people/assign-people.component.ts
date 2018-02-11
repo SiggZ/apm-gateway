@@ -14,8 +14,13 @@ import { SprintTeam, SprintTeamService } from '../sprint-team'
 })
 export class AssignPeopleComponent implements OnInit, OnDestroy {
     eventSubscriber: Subscription;
+<<<<<<< HEAD
     selectedTeam : Team;
     selectedPeople: Array<Person>;
+=======
+    selectedPeople: Array<Person>;
+    teams: Array<Team>;
+>>>>>>> 24df88a9171ac5a6d1e0b0441c5bc6b2d65a9649
     people: Array<Person>;
     personSelectionControl: FormControl;
 
@@ -33,16 +38,27 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
 
+<<<<<<< HEAD
         this.InitializePeople ();
         this.personSelectionControl = new FormControl();
         this.personSelectionControl.valueChanges.subscribe((event: any) => {
             console.log('Person Selection made')};
             };
+=======
+
+        this.registerChangeInTeams();
+        this.personSelectionControl = new FormControl();
+        this.personSelectionControl.valueChanges.subscribe((event: any) => {
+            console.log('Person Selection made');
+        });
+    };
+>>>>>>> 24df88a9171ac5a6d1e0b0441c5bc6b2d65a9649
 
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
     };
 
+<<<<<<< HEAD
     InitializePeople(): void {
         this.PersonService.query().subscribe(
             (res: ResponseWrapper) => this.onInitPeopleSuccess(res.json),
@@ -91,5 +107,9 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
         );
     };
 
+=======
+
+    // create SprintTeam entities for the selected teams in the sprint
+>>>>>>> 24df88a9171ac5a6d1e0b0441c5bc6b2d65a9649
 }
 
