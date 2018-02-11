@@ -30,6 +30,10 @@ export class SprintOverviewComponent implements OnInit {
         this.sprintTeamService.getBySprint(sprint).subscribe(
             (res: ResponseWrapper) => {
                 this.sprintTeams = res.json;
+                console.log('Getting Sprint teams for Sprint ' + sprint.name);
+                for (let v of this.sprintTeams){
+                    console.log(v.team.name);
+                }
             },
             (res: ResponseWrapper) => this.onError(res.json)
         );

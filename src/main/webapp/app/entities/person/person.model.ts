@@ -10,6 +10,7 @@ export class Person implements BaseEntity {
         public projectAvailability?: number,
         public sprintAvailability?: number,
         public ahcr?: number,
+        public userImageData?: any,
     ) {
     }
 }
