@@ -21,8 +21,11 @@ export class SprintTeamService {
     }
 
     update(sprintTeam: SprintTeam): Observable<SprintTeam> {
-        // TODO: implement - necessary for updating people in a SprintTeam
-        return null;
+        const copy = this.convert(sprintTeam);
+        return this.http.put(this.resourceUrl, copy).map((res: Response) => {
+            const jsonResponse = res.json();
+            return this.convertItemFromServer(jsonResponse);
+        });
     }
 
     delete(id: string): Observable<Response> {
@@ -35,8 +38,8 @@ export class SprintTeamService {
             .map((res: Response) => this.convertResponse(res));
     }
 
-    getBySprint(sprint?: any): Observable<ResponseWrapper> {
-        return this.http.get('/iterationservice/api/sprint-teams-by-sprint/' + sprint.id)
+    getBySprint(sprintId?: any): Observable<ResponseWrapper> {
+        return this.http.get('/iterationservice/api/sprint-teams-by-sprint/' + sprintId)
             .map((res: Response) => this.convertResponse(res));
     }
 

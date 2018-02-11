@@ -1,54 +1,18 @@
-<<<<<<< HEAD
-<mat-card-subtitle>
-</mat-card-subtitle>
-
 <mat-card-content>
     <jhi-alert></jhi-alert>
 
-    <div class="container-fluid" >
-        <div class="co;" >
-            <mat-card-title placeholder = "Assign to " [(ngModel)]="selectedTeam" name="theSprintTeam"></mat-card-title>
-=======
-
-<div >
-
-
-Assign People to Team
-
-
-
-
-</div>
-
-
-    <div >
-        <div >
-            <mat-card-title *ngFor="let team of teams" [value]="team">
-                {{team.name}}
-            </mat-card-title>
->>>>>>> 24df88a9171ac5a6d1e0b0441c5bc6b2d65a9649
+     <div >
+         <mat-card-title>{{team.name}}</mat-card-title>
             <form>
                 <mat-form-field>
                     <mat-select placeholder="Select People" [(ngModel)]="selectedPeople" [formControl]="personSelectionControl" name="thePeople" multiple>
-                        <mat-option *ngFor="let Person of people" [value]="Person">
-                            {{Person.name}}
+                        <mat-option *ngFor="let person of people" [value]="person">
+                            {{person.name}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
             </form>
-<<<<<<< HEAD
-            <button mat-raised-button color="primary"  data-toggle="tooltip" data-placement="top" title="Assign People to Team">Save</button>
-=======
-            <button mat-raised-button color="primary"  data-toggle="tooltip" data-placement="top" title="Assign People to Team" >Save</button>
->>>>>>> 24df88a9171ac5a6d1e0b0441c5bc6b2d65a9649
-
-        </div>
-
-
-
-    </div>
-<<<<<<< HEAD
+            <button mat-raised-button color="primary"  (click)="assignPeopleToSprintTeam()" data-toggle="tooltip" data-placement="top" title="Assign People to Team">Save</button>
+     </div>
 
 </mat-card-content>
-=======
->>>>>>> 24df88a9171ac5a6d1e0b0441c5bc6b2d65a9649

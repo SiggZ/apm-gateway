@@ -36,7 +36,7 @@ export class IterationCopyDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.sprintTeamService.getBySprint(this.iteration).subscribe(
+        this.sprintTeamService.getBySprint(this.iteration.id).subscribe(
             (res: ResponseWrapper) => {
                 this.sprintTeams = res.json;
             },

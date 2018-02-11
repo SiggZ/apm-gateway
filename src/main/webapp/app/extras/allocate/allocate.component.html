@@ -30,7 +30,7 @@
                         <mat-card-subtitle [hidden]="!selectedSprint || selectedTeams.length == 0">Selected:</mat-card-subtitle>
                         <tr *ngFor="let team of selectedTeams ;trackBy: trackId">
                             <td>
-                                    <a class="nav-link" [routerLink]="['../assign-people' ]">
+                                    <a class="nav-link" [routerLink]="['../assign-people/' + selectedSprint.id + '/' + team.id ]">
                                         <span>{{team.name}}</span>
                                     </a>
                             </td>
