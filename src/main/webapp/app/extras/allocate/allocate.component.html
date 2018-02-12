@@ -17,7 +17,7 @@
         </form>
         <form>
                 <mat-form-field>
-                    <mat-select placeholder="Select Teams" [(ngModel)]="selectedTeams" [formControl]="teamSelectionControl" name="theTeams" multiple>
+                    <mat-select placeholder="Select Teams" [(ngModel)]="selectedTeams" [disabled]="!selectedSprint" [formControl]="teamSelectionControl" name="theTeams" multiple>
                         <mat-option *ngFor="let team of teams" [value]="team">
                             {{team.name}}
                         </mat-option>
