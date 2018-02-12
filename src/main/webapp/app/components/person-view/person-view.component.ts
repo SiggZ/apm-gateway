@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Person, PersonService} from '../../entities/person';
-import {UserImageService} from "../../entities/person/user-image.service";
+import {Person, PersonService, UserImageService} from '../../entities/person';
 
 @Component({
     selector: 'jhi-person',

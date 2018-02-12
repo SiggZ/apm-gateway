@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { GatewaySharedModule } from '../shared';
 
-import { HOME_ROUTE, HomeComponent, ALLOCATE_ROUTE,ASSIGN_PEOPLE_ROUTE, DISPLAY_PEOPLE_AVAILABILITY  } from './';
+import { HOME_ROUTE, HomeComponent, ALLOCATE_ROUTE, ASSIGN_PEOPLE_ROUTE, DISPLAY_PEOPLE_AVAILABILITY } from './';
 import {AllocateComponent} from '../extras/allocate/allocate.component';
 import {
     MatButtonModule, MatCardModule, MatFormFieldModule, MatGridListModule, MatOptionModule,

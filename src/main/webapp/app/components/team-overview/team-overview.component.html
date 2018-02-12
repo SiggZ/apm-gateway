@@ -4,7 +4,7 @@
             <mat-card-title>{{sprintTeam.team.name}}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <div *ngIf="sprintTeam.sprintTeamPersons != null">
+            <div *ngIf="sprintTeam.sprintTeamPersons != null && sprintTeam.sprintTeamPersons.length > 0">
                 <mat-grid-list cols="6"  rowHeight="140px" >
                     <mat-grid-tile *ngFor="let num of [0,1,2,3,4]; let i = index">
                         <div *ngIf="i < 3 && sprintTeam.sprintTeamPersons.length > i" >

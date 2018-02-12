@@ -182,4 +182,3 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
     }
 
 }
-
