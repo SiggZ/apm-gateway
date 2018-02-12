@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, AfterContentChecked} from '@angular/core';
+import {Component, OnInit, OnDestroy, Input} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { Subscription } from 'rxjs/Rx';
@@ -18,14 +18,12 @@ import {Iteration, IterationService} from '../../entities/iteration/';
 })
 export class AssignPeopleComponent implements OnInit, OnDestroy {
     eventSubscriber: Subscription;
-    team = new Team();
-    sprint = new Iteration();
+    @Input() team = new Team();
+    @Input() sprint = new Iteration();
     selectedPeople: Array<Person> = new Array<Person>();
     people: Array<Person>;
     personSelectionControl: FormControl;
     sprintTeam: SprintTeam = new SprintTeam();
-    private subscription: Subscription;
-
     constructor(
         private teamService: TeamService,
         private iterationService: IterationService,
@@ -43,11 +41,15 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.initializePeople ();
         this.registerChangeInTeams();
-        this.subscription = this.route.params.subscribe((params) => {
+      /*  this.subscription = this.route.params.subscribe((params) => {
             this.sprintLoad(params['sprintId']);
             this.teamLoad(params['teamId']);
             this.sprintTeamsForSprint(params['sprintId'], params['teamId']);
         });
+        */
+        if (this.sprint.id != null && this.team.id != null) {
+            this.sprintTeamsForSprint(this.sprint.id, this.team.id);
+        }
 
         this.personSelectionControl = new FormControl();
         this.personSelectionControl.valueChanges.subscribe((event: any) => {
@@ -55,7 +57,7 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
         });
     };
 
-    sprintLoad(id) {
+ /*   sprintLoad(id) {
         this.iterationService.find(id).subscribe((sprint) => {
             this.sprint = sprint;
         });
@@ -65,9 +67,9 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
             this.team = team;
         });
     }
+*/
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
-        this.subscription.unsubscribe();
     };
 
     initializePeople(): void {

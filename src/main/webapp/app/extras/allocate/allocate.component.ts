@@ -11,7 +11,10 @@ import { Person, PersonService } from '../../entities/person';
 
 @Component({
     selector: 'jhi-allocate',
-    templateUrl: './allocate.component.html'
+    templateUrl: './allocate.component.html',
+    styleUrls: [
+        './allocate.scss'
+    ]
 })
 export class AllocateComponent implements OnInit, OnDestroy {
     eventSubscriber: Subscription;
@@ -22,6 +25,7 @@ export class AllocateComponent implements OnInit, OnDestroy {
     iterations: Array<Iteration>;
     sprintControl: FormControl;
     teamSelectionControl: FormControl;
+    assignPeopleToTeamVisible = true;
     sprintTeams:  Array<SprintTeam>;
     constructor(
         private teamService: TeamService,
