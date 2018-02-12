@@ -1,9 +1,6 @@
 <mat-card-content>
-    <jhi-alert></jhi-alert>
     <div class="container">
      <div class="col-sm-12">
-         <mat-card-title>{{team.name + ' in ' + sprint.name}}</mat-card-title>
-         <br/>
          <br/>
             <form>
                 <mat-form-field>
@@ -27,13 +24,14 @@
              </div>
     </div>
         <div class="col-sm-12">
-            <br/> <br/>
-        <button mat-raised-button
-                (click)="previousScreen()"
-                class="btn btn-info">
-            <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
-        </button>
-        <button mat-raised-button color="primary"  (click)="assignPeopleToSprintTeam()" data-toggle="tooltip" data-placement="top" title="Assign People to Team">Save</button>
+            <button type="submit"
+                    class="btn btn-primary float-right" (click)="assignPeopleToSprintTeam()"
+                    [ngbTooltip]="addTooltip" placement="bottom">
+                <span class="fa fa-save"></span>
+                <ng-template #addTooltip>
+                    <span >Save People in Sprint</span>
+                </ng-template>
+            </button>
         </div>
     </div>
 </mat-card-content>
