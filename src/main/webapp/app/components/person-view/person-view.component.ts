@@ -13,8 +13,9 @@ export class PersonViewComponent implements OnInit {
     @Input() person = {personId: null};
     @Input() imageSrc: string;
     @Input() disableAvailability = true;
+    @Input() realPerson: Person;
+    @Input() useAsReal = false;
 
-    realPerson: Person;
     name: string;
     surname: string;
     personImage: any;
@@ -39,7 +40,12 @@ export class PersonViewComponent implements OnInit {
     }
 
     ngOnInit() {
+        if (this.useAsReal) {
+            this.name = this.realPerson.name;
+            this.surname = this.realPerson.surname;
+        } else {
             this.parsePerson(this.person);
+        }
     }
     onClick() {
         if (!this.disableAvailability) {

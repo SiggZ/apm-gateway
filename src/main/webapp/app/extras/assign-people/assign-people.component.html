@@ -1,18 +1,39 @@
 <mat-card-content>
     <jhi-alert></jhi-alert>
-
-     <div >
-         <mat-card-title>{{team.name}}</mat-card-title>
+    <div class="container">
+     <div class="col-sm-12">
+         <mat-card-title>{{team.name + ' in ' + sprint.name}}</mat-card-title>
+         <br/>
+         <br/>
             <form>
                 <mat-form-field>
                     <mat-select placeholder="Select People" [(ngModel)]="selectedPeople" [formControl]="personSelectionControl" name="thePeople" multiple>
                         <mat-option *ngFor="let person of people" [value]="person">
-                            {{person.name}}
+                            {{person.name + ' '+ person.surname}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
             </form>
-            <button mat-raised-button color="primary"  (click)="assignPeopleToSprintTeam()" data-toggle="tooltip" data-placement="top" title="Assign People to Team">Save</button>
-     </div>
+             <div class="more-left-margin">
+             <mat-card-subtitle [hidden]="selectedPeople === undefined || selectedPeople.length == 0">Selected:</mat-card-subtitle>
+                 <br/>
+             <tr *ngFor="let person of selectedPeople ;trackBy: trackId">
+                 <td><span>{{person.name + ' '+ person.surname + '  '}}</span> </td>
+                 <td></td>
+                 <td class="more-left-margin"> <span class=" fa fa-times fa- float-right" (click)="removePersonClicked(person)"></span></td>
 
+
+             </tr>
+             </div>
+    </div>
+        <div class="col-sm-12">
+            <br/> <br/>
+        <button mat-raised-button
+                (click)="previousScreen()"
+                class="btn btn-info">
+            <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+        </button>
+        <button mat-raised-button color="primary"  (click)="assignPeopleToSprintTeam()" data-toggle="tooltip" data-placement="top" title="Assign People to Team">Save</button>
+        </div>
+    </div>
 </mat-card-content>

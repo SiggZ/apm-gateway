@@ -11,13 +11,16 @@ import {Iteration, IterationService} from '../../entities/iteration/';
 
 @Component({
     selector: 'jhi-assign-people',
-    templateUrl: './assign-people.component.html'
+    templateUrl: './assign-people.component.html',
+    styleUrls: [
+        './assign-people.scss'
+    ]
 })
 export class AssignPeopleComponent implements OnInit, OnDestroy {
     eventSubscriber: Subscription;
     team = new Team();
     sprint = new Iteration();
-    selectedPeople: Array<Person>;
+    selectedPeople: Array<Person> = new Array<Person>();
     people: Array<Person>;
     personSelectionControl: FormControl;
     sprintTeam: SprintTeam = new SprintTeam();
@@ -75,14 +78,24 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
     };
     onInitPeopleSuccess(people: Array<Person>): void {
         this.people = people;
-        this.updateAlreadyAssignedPeople();
+        this.updateSelectionForPeopleAlreadyInTeam();
     };
 
     assignPeopleToSprintTeam() {
         this.updateExistingSprintTeam();
     };
 
+    removePersonClicked(person: Person) {
+        var index = this.selectedPeople.indexOf(person);
+        var  selectedPeopleWithoutPerson = this.selectedPeople;
+        selectedPeopleWithoutPerson.splice(index, 1);
+        this.selectedPeople = new Array<Person>();
+        for (person of selectedPeopleWithoutPerson) {
+            this.selectedPeople.push(person);
+        }
+    };
     private updateExistingSprintTeam() {
+        if (this.sprintTeam != null) {
         this.sprintTeam.sprintTeamPersons = new Array<any>();
         for (var selectedPerson of this.selectedPeople) {
                 var sprintTeamPerson: any = {
@@ -94,7 +107,9 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
         this.sprintTeamService.update(this.sprintTeam).subscribe(
             (response: SprintTeam) => console.log('Successfully updated SprintTeam for '),
             (error: any) => console.log('Failed to update SprintTeam: ') )// TODO: handle errors?
-    };
+
+        }
+        };
 
     private onError(error): void {
         this.jhiAlertService.error(error.message, null, null);
@@ -113,17 +128,16 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
                     var filteredTeams = sprintTeams.filter((x) => (x.team.id === teamId));
                     if (filteredTeams != null && filteredTeams.length > 0) {
                         this.sprintTeam = filteredTeams[0];
-                        this.updateAlreadyAssignedPeople();
+                        this.updateSelectionForPeopleAlreadyInTeam();
                     }
                 }
             },
             (res: ResponseWrapper) => this.onError(res.json)
         );
     };
-
-    private updateAlreadyAssignedPeople() {
+    private updateSelectionForPeopleAlreadyInTeam() {
         this.selectedPeople = new Array<Person>();
-        if (this.sprintTeam != null && this.sprintTeam !== undefined) {
+        if (this.sprintTeam != null && this.sprintTeam !== undefined && this.sprintTeam.sprintTeamPersons != null) {
             const spTeamPersonIds = this.sprintTeam.sprintTeamPersons.map((x) => x.personId);
             for (var person of this.people) {
                 if (spTeamPersonIds.indexOf(person.id) > -1 ) {
@@ -132,5 +146,10 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
             }
         }
     }
+
+    previousScreen() {
+        window.history.back();
+    }
+
 }
 
