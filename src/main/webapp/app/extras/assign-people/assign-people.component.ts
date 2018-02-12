@@ -82,7 +82,11 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
     };
 
     assignPeopleToSprintTeam() {
-        this.updateExistingSprintTeam();
+        if (this.sprintTeam.id != null) {
+            this.updateExistingSprintTeam();
+        } else {
+            this.createSprintTeam();
+        }
     };
 
     removePersonClicked(person: Person) {
@@ -95,7 +99,7 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
         }
     };
     private updateExistingSprintTeam() {
-        if (this.sprintTeam != null) {
+        if (this.sprintTeam != null ) {
         this.sprintTeam.sprintTeamPersons = new Array<any>();
         for (var selectedPerson of this.selectedPeople) {
                 var sprintTeamPerson: any = {
@@ -110,6 +114,21 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
 
         }
         };
+
+    private createSprintTeam() {
+        this.sprintTeam.sprintTeamPersons = new Array<any>();
+        for (var selectedPerson of this.selectedPeople) {
+            var sprintTeamPerson: any = {
+                personId:  selectedPerson.id
+            }
+            this.sprintTeam.sprintTeamPersons.push(sprintTeamPerson);
+        }
+        this.sprintTeamService.create(this.sprintTeam).subscribe(
+            (response: SprintTeam) => console.log('Successfully created SprintTeam for ' + response.team.name),
+            (error: any) => console.log('Failed to create SprintTeam: ' + error) // TODO: handle errors?
+        );
+
+    }
 
     private onError(error): void {
         this.jhiAlertService.error(error.message, null, null);
@@ -129,7 +148,11 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
                     if (filteredTeams != null && filteredTeams.length > 0) {
                         this.sprintTeam = filteredTeams[0];
                         this.updateSelectionForPeopleAlreadyInTeam();
+                    } else {
+                        this.prepareToCreateNewSprintTeam();
                     }
+                } else {
+                    this.prepareToCreateNewSprintTeam();
                 }
             },
             (res: ResponseWrapper) => this.onError(res.json)
@@ -145,6 +168,13 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
                 }
             }
         }
+    }
+
+    private prepareToCreateNewSprintTeam() {
+        this.sprintTeam.id = null;
+        this.sprintTeam.team = this.team;
+        this.sprintTeam.sprint = this.sprint;
+        this.sprintTeam.sprintTeamPersons = new Array<any>();
     }
 
     previousScreen() {
