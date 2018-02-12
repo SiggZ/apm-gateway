@@ -63,7 +63,6 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
     };
     onInitPeopleSuccess(people: Array<Person>): void {
         this.people = people;
-        this.updateSelectionForPeopleAlreadyInTeam();
     };
 
     assignPeopleToSprintTeam() {
