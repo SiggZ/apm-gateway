@@ -27,12 +27,14 @@ export class SprintOverviewComponent implements OnInit {
     };
 
     initializeSprintTeams(sprint: Iteration): void {
-        this.sprintTeamService.getBySprint(sprint).subscribe(
-            (res: ResponseWrapper) => {
-                this.sprintTeams = res.json;
-            },
+        if (sprint != null && sprint !== undefined) {
+            this.sprintTeamService.getBySprint(sprint.id).subscribe(
+                (res: ResponseWrapper) => {
+                    this.sprintTeams = res.json;
+                },
             (res: ResponseWrapper) => this.onError(res.json)
-        );
+            );
+        }
     }
 
     private onError(error): void {

@@ -30,7 +30,7 @@
                         <mat-card-subtitle [hidden]="!selectedSprint || selectedTeams.length == 0">Selected:</mat-card-subtitle>
                         <tr *ngFor="let team of selectedTeams ;trackBy: trackId">
                             <td>
-                                    <a class="nav-link" [routerLink]="['/', { outlets: { popup: 'team/'+ team.id + '/edit'} }]" routerLinkActive="active">
+                                    <a class="nav-link" [routerLink]="['../assign-people/' + selectedSprint.id + '/' + team.id ]">
                                         <span>{{team.name}}</span>
                                     </a>
                             </td>
@@ -39,7 +39,7 @@
         <br/>
         <br/>
         <button mat-raised-button color="primary"  data-toggle="tooltip" data-placement="top" title="Assign Teams to Sprint"
-                (click)="createSprintTeams()"  [disabled]="!selectedSprint || selectedTeams.length == 0">Save</button>
+                (click)="createSprintTeams()"  [disabled]="!selectedSprint">Save</button>
 
     </div>
 

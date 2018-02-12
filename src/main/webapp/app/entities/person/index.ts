@@ -6,3 +6,5 @@ export * from './person-delete-dialog.component';
 export * from './person-detail.component';
 export * from './person.component';
 export * from './person.route';
+export * from './user-image.model';
+export * from './user-image.service';

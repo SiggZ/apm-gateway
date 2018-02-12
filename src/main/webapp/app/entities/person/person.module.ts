@@ -14,6 +14,7 @@ import {
     personRoute,
     personPopupRoute,
 } from './';
+import {UserImageService} from './user-image.service';
 
 const ENTITY_STATES = [
     ...personRoute,
@@ -43,6 +44,7 @@ const ENTITY_STATES = [
     providers: [
         PersonService,
         PersonPopupService,
+        UserImageService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

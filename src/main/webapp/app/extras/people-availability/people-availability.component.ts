@@ -43,7 +43,7 @@ export class PeopleAvailabilityComponent implements OnInit {
         this.iterationService.getListOfDaysForSprint(this.sprintTeam.sprint.id).subscribe(
             (res: ResponseWrapper) => {
                 this.listOfDays = res.json.map((x) => this.datePipe.transform(x, dateFormat));
-                this.calenderColumns = this.listOfDays.length + 1;
+                this.calenderColumns = this.listOfDays.length;
             },
             (res: ResponseWrapper) => this.onError(res.json)
         );

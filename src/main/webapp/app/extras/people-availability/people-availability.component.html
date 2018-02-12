@@ -1,15 +1,16 @@
-<div class="col" *ngFor="let stPerson of sprintTeam.sprintTeamPersons; let i = index">
-    <div class="container">
-
-
-        <mat-grid-list [cols]='calenderColumns'  rowHeight="120px" gutterSize="2px" >
-            <mat-grid-tile>
-                <jhi-person [person]="stPerson"></jhi-person>
-            </mat-grid-tile>
-            <mat-grid-tile  *ngFor="let dayOfSprint of listOfDays">
-                <mat-card [style.backgroundColor]="personAvailableOnDay(dayOfSprint, stPerson.availableDays)?'#d4edda':'#fff3cd'" >
-                    {{dayOfSprint  | date:'dd MMM'}}</mat-card>
-            </mat-grid-tile>
-        </mat-grid-list>
+<br/>
+<div class="container" *ngFor="let stPerson of sprintTeam.sprintTeamPersons; let i = index">
+    <div class="row">
+        <div class="col-sm-2 more-left-margin">
+             <jhi-person [person]="stPerson"></jhi-person>
+        </div>
+        <div class="col-sm-9">
+            <mat-grid-list [cols]='calenderColumns'  rowHeight="120px" gutterSize="0px" >
+                <mat-grid-tile  *ngFor="let dayOfSprint of listOfDays">
+                    <mat-card [style.backgroundColor]="personAvailableOnDay(dayOfSprint, stPerson.availableDays)?'#d4edda':'#fff3cd'" >
+                        {{dayOfSprint  | date:'dd MMM'}}</mat-card>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </div>
     </div>
 </div>
