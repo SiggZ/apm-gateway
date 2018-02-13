@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { GatewaySharedModule } from '../shared';
 
-import { HOME_ROUTE, HomeComponent, ALLOCATE_ROUTE, ASSIGN_PEOPLE_ROUTE, DISPLAY_PEOPLE_AVAILABILITY } from './';
+import { HOME_ROUTE, HomeComponent, ALLOCATE_ROUTE, DISPLAY_PEOPLE_AVAILABILITY } from './';
 import {AllocateComponent} from '../extras/allocate/allocate.component';
 import {
     MatButtonModule, MatCardModule, MatFormFieldModule, MatGridListModule, MatOptionModule,
@@ -22,7 +22,7 @@ import {AssignPeopleComponent} from '../extras/assign-people/assign-people.compo
 @NgModule({
     imports: [
         GatewaySharedModule,
-        RouterModule.forRoot([ HOME_ROUTE, ALLOCATE_ROUTE, ASSIGN_PEOPLE_ROUTE, DISPLAY_PEOPLE_AVAILABILITY], { useHash: true }),
+        RouterModule.forRoot([ HOME_ROUTE, ALLOCATE_ROUTE, DISPLAY_PEOPLE_AVAILABILITY], { useHash: true }),
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
