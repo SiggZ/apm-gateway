@@ -111,17 +111,6 @@ export class AllocateComponent implements OnInit, OnDestroy {
             );
         }
     };
-    reloadOnlySprintTeamsForSprint(sprint: Iteration): void {
-        if (sprint != null && sprint !== undefined) {
-
-            this.sprintTeamService.getBySprint(sprint.id).subscribe(
-                (res: ResponseWrapper) => {
-                    this.sprintTeams = res.json;
-                },
-                (res: ResponseWrapper) => this.onError(res.json)
-            );
-        }
-    };
 
     getTeamsForSprint(): void {
         this.sprintTeamsForSprint(this.selectedSprint);
