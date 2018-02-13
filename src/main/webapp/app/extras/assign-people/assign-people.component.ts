@@ -24,6 +24,7 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
     people: Array<Person>;
     personSelectionControl: FormControl;
     sprintTeam: SprintTeam = new SprintTeam();
+    saveHasBeenPressed = false;
     constructor(
         private teamService: TeamService,
         private iterationService: IterationService,
@@ -41,7 +42,7 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.initializePeople ();
         this.registerChangeInTeams();
-        if (this.sprint.id != null && this.team.id != null) {
+        if (this.sprint != null && this.team != null && this.sprint.id != null && this.team.id != null) {
             this.sprintTeamsForSprint(this.sprint.id, this.team.id);
         }
 
@@ -71,6 +72,7 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
         } else {
             this.createSprintTeam();
         }
+        this.saveHasBeenPressed = true;
     };
 
     removePersonClicked(person: Person) {
@@ -153,7 +155,8 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
     };
     private updateSelectionForPeopleAlreadyInTeam() {
         this.selectedPeople = new Array<Person>();
-        if (this.sprintTeam != null && this.sprintTeam !== undefined && this.sprintTeam.sprintTeamPersons != null) {
+        if (this.sprintTeam != null && this.sprintTeam !== undefined && this.sprintTeam.sprintTeamPersons != null
+            && this.sprintTeam.sprintTeamPersons !== undefined && this.sprintTeam.sprintTeamPersons.length > 0) {
             const spTeamPersonIds = this.sprintTeam.sprintTeamPersons.map((x) => x.personId);
             for (var person of this.people) {
                 if (spTeamPersonIds.indexOf(person.id) > -1 ) {
