@@ -25,7 +25,6 @@ export class AllocateComponent implements OnInit, OnDestroy {
     iterations: Array<Iteration>;
     sprintControl: FormControl;
     teamSelectionControl: FormControl;
-    assignPeopleToTeamVisible = true;
     sprintTeams:  Array<SprintTeam>;
     constructor(
         private teamService: TeamService,
@@ -46,9 +45,13 @@ export class AllocateComponent implements OnInit, OnDestroy {
         this.registerChangeInTeams();
         this.sprintControl = new FormControl();
         this.sprintControl.valueChanges.subscribe((event: any) => {
+            if (this.selectedSprint != null) {
+                this.teamSelectionControl.enable();
+            }
             this.initializeTeamsForSprint();
         });
         this.teamSelectionControl = new FormControl();
+        this.teamSelectionControl.disable();
         this.teamSelectionControl.valueChanges.subscribe((event: any) => {
         });
     };
