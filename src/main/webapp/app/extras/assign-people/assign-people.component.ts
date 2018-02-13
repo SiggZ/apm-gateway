@@ -67,14 +67,26 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
     };
 
     assignPeopleToSprintTeam() {
-        if (this.sprintTeam.id != null) {
-            this.updateExistingSprintTeam();
-        } else {
-            this.createSprintTeam();
+        if (this.sprint != null && this.team != null) {
+            this.sprintTeamService.getBySprint(this.sprint.id).subscribe(
+                (res: ResponseWrapper) => {
+                    var sprintTeams = res.json;
+                    if (sprintTeams != null && sprintTeams.length > 0) {
+                        var filteredTeams = sprintTeams.filter((x) => (x.team.id === this.team.id));
+                        if (filteredTeams != null && filteredTeams.length > 0) {
+                            this.sprintTeam = filteredTeams[0];
+                            this.updateExistingSprintTeam();
+                        } else {
+                            this.createSprintTeam();
+                        }
+                    } else {
+                        this.createSprintTeam();
+                    }
+                },
+                (res: ResponseWrapper) => this.onError(res.json)
+            );
         }
-        this.saveHasBeenPressed = true;
-    };
-
+    }
     removePersonClicked(person: Person) {
         var index = this.selectedPeople.indexOf(person);
         var  selectedPeopleWithoutPerson = this.selectedPeople;
