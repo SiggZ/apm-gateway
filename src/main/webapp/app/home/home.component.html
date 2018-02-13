@@ -6,8 +6,10 @@
                 <span *ngIf="account"> You are logged in as user "{{account.login}}". </span>
             </div>
             <jhi-alert></jhi-alert>
-            <jhi-all-sprints></jhi-all-sprints>
-        </div>
+            <div *ngSwitchCase="true">
+                <jhi-all-sprints></jhi-all-sprints>
 
+            </div>
+        </div>
     </div>
-    </div>
+</div>
