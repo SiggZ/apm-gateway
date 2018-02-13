@@ -148,96 +148,66 @@ export class AllocateComponent implements OnInit, OnDestroy {
 
     // create SprintTeam entities for the selected teams in the sprint
     createSprintTeams() {
-        const selectedTeamsIds = this.selectedTeams.map((x) =>  x.id);
-        const teamsInSprintIds = this.sprintTeams.map((x) =>  x.team.id);
-        var toCreate = new Array<Team>();
-        var toDelete = new Array<SprintTeam>();
-        var toUpdate = new Array<Team>();
+        if (this.selectedSprint != null && this.selectedSprint !== undefined) {
+        this.sprintTeamService.getBySprint(this.selectedSprint.id).subscribe(
+            (res: ResponseWrapper) => {
+                this.sprintTeams = res.json;
+                const teamsInSprintIds = this.sprintTeams.map((x) =>  x.team.id);
+                const selectedTeamsIds = this.selectedTeams.map((x) =>  x.id);
+                var toCreate = new Array<Team>();
+                var toDelete = new Array<SprintTeam>();
+                var toUpdate = new Array<Team>();
 
-        for (var selTeam of this.selectedTeams) {
-            if (teamsInSprintIds.indexOf(selTeam.id) > -1) {
-                console.log('Selected exists' + selTeam.name );
-                toUpdate.push(selTeam);
-            } else {
-                console.log('Selected will be created ' + selTeam.name);
-                toCreate.push(selTeam);
-            }
-        }
-        for (var sprTeam of this.sprintTeams) {
-            if (selectedTeamsIds.indexOf(sprTeam.team.id) > -1) {
-                console.log('Do nothing' + sprTeam.team.name );
-            } else {
-                console.log('Selected will be created ' + sprTeam.team.name);
-                toDelete.push(sprTeam);
-            }
-        }
-
-        toCreate.forEach((team) => {
-            console.log('Create SprintTeam entity for team ' + team.name);
-            var sprintTeam: SprintTeam = {
-                sprint: {
-                    id: this.selectedSprint.id
-                },
-                team: {
-                    id: team.id
-                }
-            };
-            sprintTeam.sprintTeamPersons = new Array<any>();
-
-            this.sprintTeamService.create(sprintTeam).subscribe(
-                (response: SprintTeam) => console.log('Successfully created SprintTeam for ' + response.team.name),
-                (error: any) => console.log('Failed to create SprintTeam: ' + error) // TODO: handle errors?
-            );
-/*            this.personService.query().subscribe(
-                (res: ResponseWrapper) => {
-                    this.people =  new Array<Person>();
-                    this.people = res.json;
-                    sprintTeam.sprintTeamPersons = new Array<any>();
-                    if ( this.people.length > 0)  {
-                        console.log('ATTENTION!');
-                        for (var i = 0; i < 5; i++) {
-                            if (i < this.people.length) {
-                                console.log('The index i is ' + i);
-                                console.log('The id of the person is ' + this.people[i].id);
-                                var sprintTeamPerson: any = {
-                                    personId:  this.people[i].id
-                                }
-                                sprintTeam.sprintTeamPersons.push(sprintTeamPerson);
-                                console.log(this.people[i].name + ' '  + this.people[i].surname );
-                            }
-                          }
+                for (var selTeam of this.selectedTeams) {
+                    if (teamsInSprintIds.indexOf(selTeam.id) > -1) {
+                        console.log('Selected exists' + selTeam.name );
+                        toUpdate.push(selTeam);
+                    } else {
+                        console.log('Selected will be created ' + selTeam.name);
+                        toCreate.push(selTeam);
                     }
+                }
+                for (var sprTeam of this.sprintTeams) {
+                    if (selectedTeamsIds.indexOf(sprTeam.team.id) > -1) {
+                        console.log('Do nothing' + sprTeam.team.name );
+                    } else {
+                        console.log('Selected will be created ' + sprTeam.team.name);
+                        toDelete.push(sprTeam);
+                    }
+                }
+
+                toCreate.forEach((team) => {
+                    console.log('Create SprintTeam entity for team ' + team.name);
+                    var sprintTeam: SprintTeam = {
+                        sprint: {
+                            id: this.selectedSprint.id
+                        },
+                        team: {
+                            id: team.id
+                        }
+                    };
+                    sprintTeam.sprintTeamPersons = new Array<any>();
+
                     this.sprintTeamService.create(sprintTeam).subscribe(
                         (response: SprintTeam) => console.log('Successfully created SprintTeam for ' + response.team.name),
                         (error: any) => console.log('Failed to create SprintTeam: ' + error) // TODO: handle errors?
                     );
+                });
+                toUpdate.forEach((team) => {
+                    console.log('Update SprintTeam entity for team ' + team.name);
+                });
+                toDelete.forEach((spteam) => {
+                    console.log('Delete SprintTeam entity for team ' + spteam.team.name);
+                    this.sprintTeamService.delete(spteam.id).subscribe(
+                        (response: Response) => console.log('Successfully deleted SprintTeam'),
+                        (error: any) => console.log('Failed to delete SprintTeam: ' + error) // TODO: handle errors?
+                    );
+                });
+                this.jhiAlertService.success(this.selectedSprint.name + ' has been saved successfully.');
 
-                },
-                (res: ResponseWrapper) => this.onError(res.json)
-            ); */
-        });
-        toUpdate.forEach((team) => {
-            console.log('Update SprintTeam entity for team ' + team.name);
-            const sprintTeam: SprintTeam = {
-                sprint: {
-                    id: this.selectedSprint.id
-                },
-                team: {
-                    id: team.id
-                }
-            };
-/*            this.sprintTeamService.update(sprintTeam).subscribe(
-                (response: SprintTeam) => console.log('Successfully updated SprintTeam for '),
-                (error: any) => console.log('Failed to update SprintTeam: ') // TODO: handle errors?
-            );*/
-        });
-        toDelete.forEach((spteam) => {
-            console.log('Delete SprintTeam entity for team ' + spteam.team.name);
-            this.sprintTeamService.delete(spteam.id).subscribe(
-                (response: Response) => console.log('Successfully deleted SprintTeam'),
-                (error: any) => console.log('Failed to delete SprintTeam: ' + error) // TODO: handle errors?
-            );
-        });
-        this.jhiAlertService.success(this.selectedSprint.name + ' has been saved successfully.');
+            },
+            (res: ResponseWrapper) => this.onError(res.json)
+        );
+        }
     };
 }
