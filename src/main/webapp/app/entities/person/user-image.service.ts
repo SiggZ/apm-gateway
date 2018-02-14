@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import {Injectable} from '@angular/core';
+import {Http, Response} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 
-import { UserImage } from './user-image.model';
-import { ResponseWrapper, createRequestOption } from '../../shared';
+import {UserImage} from './user-image.model';
+import {createRequestOption, ResponseWrapper} from '../../shared';
 
 @Injectable()
 export class UserImageService {
@@ -28,10 +28,9 @@ export class UserImageService {
         });
     }
 
-    find(id: string): Observable<UserImage> {
+    find(id: string): Observable<string> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
-            const jsonResponse = res.json();
-            return this.convertItemFromServer(jsonResponse);
+            return res.text();
         });
     }
 
