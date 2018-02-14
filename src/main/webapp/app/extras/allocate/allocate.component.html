@@ -3,12 +3,12 @@
  </mat-card-subtitle>
 <mat-card-content>
     <jhi-alert></jhi-alert>
-
+    <h1>Plan or edit a Sprint</h1>
     <div class="container-fluid">
     <div class="col-lg-12 more-left-margin">
         <form>
             <mat-form-field>
-                <mat-select placeholder="Plan Sprint" [(ngModel)]="selectedSprint" [formControl]="sprintControl" name="theSprint">
+                <mat-select placeholder="Select Sprint" [(ngModel)]="selectedSprint" [formControl]="sprintControl" name="theSprint">
                     <mat-option *ngFor="let iterat of iterations" [value]="iterat">
                         {{iterat.name}}
                     </mat-option>
