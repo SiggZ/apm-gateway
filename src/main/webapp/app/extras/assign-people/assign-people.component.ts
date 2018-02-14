@@ -66,7 +66,7 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
         this.people = people;
     };
 
-    assignPeopleToSprintTeam() {
+    public assignPeopleToSprintTeam() {
         if (this.sprint != null && this.team != null) {
             this.sprintTeamService.getBySprint(this.sprint.id).subscribe(
                 (res: ResponseWrapper) => {
