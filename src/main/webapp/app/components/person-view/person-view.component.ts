@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {DomSanitizer} from '@angular/platform-browser'
 import {Person, PersonService, UserImageService} from '../../entities/person';
 
 @Component({
@@ -18,24 +19,23 @@ export class PersonViewComponent implements OnInit {
     name: string;
     surname: string;
     personImage: any;
+    imageSource: any;
     constructor(
         private personService: PersonService,
         private userImageService: UserImageService,
+        private sanitizer: DomSanitizer
   ) {};
     parsePerson(persobj: any) {
            this.personService.find(persobj.personId).subscribe((pers) => {
                 this.realPerson = pers;
                 this.name = this.realPerson.name;
                 this.surname = this.realPerson.surname;
-   /*             this.userImageService.find(this.realPerson.userImageData.imageId).subscribe( (img) => {
+                this.userImageService.find(this.realPerson.userImageData.imageId).subscribe( (img) => {
                     this.personImage = img;
-                    console.log('the image is here ' + this.personImage);
+                    this.imageSource = this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64, ' + this.personImage);
                     }
-                );*/
+                );
             });
-           if (this.personImage === undefined) {
-               this.personImage = '../../../content/images/person-placeholder.png';
-           }
     }
 
     ngOnInit() {
