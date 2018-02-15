@@ -7,7 +7,7 @@ import { HOME_ROUTE, HomeComponent, ALLOCATE_ROUTE, DISPLAY_PEOPLE_AVAILABILITY 
 import {AllocateComponent} from '../extras/allocate/allocate.component';
 import {
     MatButtonModule, MatCardModule, MatFormFieldModule, MatGridListModule, MatOptionModule,
-    MatSelectModule, MatListModule
+    MatSelectModule, MatListModule, MatInputModule
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -32,6 +32,7 @@ import {AssignPeopleComponent} from '../extras/assign-people/assign-people.compo
         MatOptionModule,
         MatFormFieldModule,
         MatGridListModule,
+        MatInputModule,
         MatListModule,
         BrowserAnimationsModule,
     ],

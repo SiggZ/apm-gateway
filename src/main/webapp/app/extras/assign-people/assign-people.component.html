@@ -3,13 +3,23 @@
      <div class="col-sm-12">
          <br/>
             <form>
-                <mat-form-field>
-                    <mat-select placeholder="Select People" [(ngModel)]="selectedPeople" [formControl]="personSelectionControl" name="thePeople" multiple>
-                        <mat-option *ngFor="let person of people" [value]="person">
-                            {{person.name + ' '+ person.surname}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
+                <div class = "row">
+                    <div class="col-sm-6">
+                        <mat-form-field>
+                            <mat-select placeholder="Select People" [(ngModel)]="selectedPeople" [formControl]="personSelectionControl" name="thePeople" multiple>
+                                 <mat-option *ngFor="let person of people" [value]="person">
+                                    {{person.name + ' '+ person.surname}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <mat-form-field>
+                            <input matInput type="number" placeholder="Velocity Factor" [(ngModel)]= "sprintTeam.velocityFactor" [formControl]="velocityFormControl">
+                        </mat-form-field>
+                    </div>
+                </div>
             </form>
              <div class="more-left-margin">
              <mat-card-subtitle [hidden]="selectedPeople === undefined || selectedPeople.length == 0">Selected:</mat-card-subtitle>
@@ -23,6 +33,12 @@
              </tr>
              </div>
     </div>
+       <div class="col-sm-2">
+           <br/>
+        <form>
+
+        </form>
+       </div>
         <div class="col-sm-12">
             <button type="submit"
                     class="btn btn-primary float-right" (click)="assignPeopleToSprintTeam()"

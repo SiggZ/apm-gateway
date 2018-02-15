@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChildren, QueryList} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { Subscription } from 'rxjs/Rx';
@@ -8,6 +8,7 @@ import { Team, TeamService } from '../../entities/team';
 import { Iteration, IterationService } from '../../entities/iteration';
 import { SprintTeam, SprintTeamService } from '../sprint-team';
 import { Person, PersonService } from '../../entities/person';
+import {AssignPeopleComponent} from '../assign-people/assign-people.component';
 
 @Component({
     selector: 'jhi-allocate',
@@ -17,6 +18,7 @@ import { Person, PersonService } from '../../entities/person';
     ]
 })
 export class AllocateComponent implements OnInit, OnDestroy {
+    @ViewChildren(AssignPeopleComponent) panes: QueryList<AssignPeopleComponent>;
     eventSubscriber: Subscription;
     selectedSprint: Iteration;
     selectedTeams: Array<Team>;
@@ -146,8 +148,29 @@ export class AllocateComponent implements OnInit, OnDestroy {
         );
     };
 
+ /*   createSprintTeams2() {
+        console.log('Using the new button');
+        this.panes.forEach((pane) =>  pane.assignPeopleToSprintTeam());
+    }
+*/
+    private saveACompletelyNewSprintThatHasNoPane(team: Team) {
+        var sprintTeam: SprintTeam = {
+            sprint: {
+                id: this.selectedSprint.id
+            },
+            team: {
+                id: team.id
+            }
+        };
+        sprintTeam.sprintTeamPersons = new Array<any>();
+
+        this.sprintTeamService.create(sprintTeam).subscribe(
+            (response: SprintTeam) => console.log('Successfully created SprintTeam for ' + response.team.name),
+            (error: any) => console.log('Failed to create SprintTeam: ' + error) // TODO: handle errors?
+       );
+    } ;
     // create SprintTeam entities for the selected teams in the sprint
-    createSprintTeams() {
+   createSprintTeams() {
         if (this.selectedSprint != null && this.selectedSprint !== undefined) {
         this.sprintTeamService.getBySprint(this.selectedSprint.id).subscribe(
             (res: ResponseWrapper) => {
@@ -177,25 +200,18 @@ export class AllocateComponent implements OnInit, OnDestroy {
                 }
 
                 toCreate.forEach((team) => {
-                    console.log('Create SprintTeam entity for team ' + team.name);
-                    var sprintTeam: SprintTeam = {
-                        sprint: {
-                            id: this.selectedSprint.id
-                        },
-                        team: {
-                            id: team.id
-                        }
-                    };
-                    sprintTeam.sprintTeamPersons = new Array<any>();
-
-                    this.sprintTeamService.create(sprintTeam).subscribe(
-                        (response: SprintTeam) => console.log('Successfully created SprintTeam for ' + response.team.name),
-                        (error: any) => console.log('Failed to create SprintTeam: ' + error) // TODO: handle errors?
-                    );
-                });
+                    var createThroughPanes = this.panes.filter((p) => p.team === team);
+                    if (createThroughPanes == null || createThroughPanes.length < 1) {
+                         this.saveACompletelyNewSprintThatHasNoPane(team);
+                    } else {
+                        createThroughPanes.forEach((p) => p.assignPeopleToSprintTeam());
+                    }
+                    });
                 toUpdate.forEach((team) => {
                     console.log('Update SprintTeam entity for team ' + team.name);
+                    this.panes.filter((p) => p.team === team).forEach((p) => p.assignPeopleToSprintTeam());
                 });
+
                 toDelete.forEach((spteam) => {
                     console.log('Delete SprintTeam entity for team ' + spteam.team.name);
                     this.sprintTeamService.delete(spteam.id).subscribe(
