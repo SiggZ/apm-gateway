@@ -23,6 +23,7 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
     selectedPeople: Array<Person> = new Array<Person>();
     people: Array<Person>;
     personSelectionControl: FormControl;
+    velocityFormControl: FormControl;
     sprintTeam: SprintTeam = new SprintTeam();
     saveHasBeenPressed = false;
     constructor(
@@ -50,6 +51,8 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
         this.personSelectionControl.valueChanges.subscribe((event: any) => {
             console.log('Person Selection made');
         });
+
+        this.velocityFormControl = new FormControl();
     };
 
     ngOnDestroy() {
@@ -66,7 +69,8 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
         this.people = people;
     };
 
-    assignPeopleToSprintTeam() {
+    public assignPeopleToSprintTeam() {
+        var velocityFactor = this.sprintTeam.velocityFactor;
         if (this.sprint != null && this.team != null) {
             this.sprintTeamService.getBySprint(this.sprint.id).subscribe(
                 (res: ResponseWrapper) => {
@@ -75,6 +79,7 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
                         var filteredTeams = sprintTeams.filter((x) => (x.team.id === this.team.id));
                         if (filteredTeams != null && filteredTeams.length > 0) {
                             this.sprintTeam = filteredTeams[0];
+                            this.sprintTeam.velocityFactor = velocityFactor;
                             this.updateExistingSprintTeam();
                         } else {
                             this.createSprintTeam();
