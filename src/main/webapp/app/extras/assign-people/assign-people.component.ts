@@ -43,9 +43,7 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.initializePeople ();
         this.registerChangeInTeams();
-        if (this.sprint != null && this.team != null && this.sprint.id != null && this.team.id != null) {
-            this.sprintTeamsForSprint(this.sprint.id, this.team.id);
-        }
+        this.sprintTeamsForSprint(this.sprint, this.team);
 
         this.personSelectionControl = new FormControl();
         this.personSelectionControl.valueChanges.subscribe((event: any) => {
@@ -143,20 +141,21 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
     }
 
     private onError(error): void {
-        this.jhiAlertService.error(error.message, null, null);
+       // this.jhiAlertService.error(error.message, null, null);
+        console.log('There was an error');
     };
 
     clearSelectedPeople(): void {
         this.selectedPeople = new Array<Person>();
     };
 
-    sprintTeamsForSprint(sprintId: any, teamId: any): void {
+    sprintTeamsForSprint(sprint: Iteration, team: Team): void {
         console.log('Sprint Team for Sprint and Team ');
-        this.sprintTeamService.getBySprint(sprintId).subscribe(
+        this.sprintTeamService.getBySprint(this.sprint.id).subscribe(
             (res: ResponseWrapper) => {
                 var sprintTeams = res.json;
                 if (sprintTeams != null && sprintTeams.length > 0) {
-                    var filteredTeams = sprintTeams.filter((x) => (x.team.id === teamId));
+                    var filteredTeams = sprintTeams.filter((x) => (x.team.id === team.id));
                     if (filteredTeams != null && filteredTeams.length > 0) {
                         this.sprintTeam = filteredTeams[0];
                         this.updateSelectionForPeopleAlreadyInTeam();
@@ -173,7 +172,7 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
     private updateSelectionForPeopleAlreadyInTeam() {
         this.selectedPeople = new Array<Person>();
         if (this.sprintTeam != null && this.sprintTeam !== undefined && this.sprintTeam.sprintTeamPersons != null
-            && this.sprintTeam.sprintTeamPersons !== undefined && this.sprintTeam.sprintTeamPersons.length > 0) {
+            && this.sprintTeam.sprintTeamPersons !== undefined) {
             const spTeamPersonIds = this.sprintTeam.sprintTeamPersons.map((x) => x.personId);
             for (var person of this.people) {
                 if (spTeamPersonIds.indexOf(person.id) > -1 ) {
