@@ -21,7 +21,6 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
     @Input() team = new Team();
     @Input() sprint = new Iteration();
     selectedPeople: Array<Person> = new Array<Person>();
-    inputVelocity = 0;
     people: Array<Person>;
     personSelectionControl: FormControl;
     velocityFormControl: FormControl;
