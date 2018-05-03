@@ -43,6 +43,14 @@ export class SprintTeamService {
             .map((res: Response) => this.convertResponse(res));
     }
 
+    getBySprintAndTeam(sprintId?: any, teamId?: any): Observable<SprintTeam> {
+        return this.http.get('/iterationservice/api/sprint-by-sprint-and-team/' + sprintId + '/' + teamId)
+            .map((res: Response) => {
+                const jsonResponse = res.json();
+                return this.convertItemFromServer(jsonResponse);
+            });
+    }
+
     getCapacityForSprintTeam(sprintTeamId: string): Observable<number> {
         return this.http.get(`${this.resourceUrl}/${sprintTeamId}/capacity`)
             .map((res: Response) => JSON.parse(res.json()));

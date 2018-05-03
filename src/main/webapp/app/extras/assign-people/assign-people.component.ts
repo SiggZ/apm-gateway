@@ -21,7 +21,7 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
     @Input() team = new Team();
     @Input() sprint = new Iteration();
     selectedPeople: Array<Person> = new Array<Person>();
-    people: Array<Person>;
+    people: Array<Person> = new Array<Person>();
     personSelectionControl: FormControl;
     velocityFormControl: FormControl;
     sprintTeam: SprintTeam = new SprintTeam();
@@ -43,7 +43,7 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.initializePeople ();
         this.registerChangeInTeams();
-        this.sprintTeamsForSprint(this.sprint, this.team);
+        this.sprintTeamForSprintAndTeam(this.sprint, this.team);
 
         this.personSelectionControl = new FormControl();
         this.personSelectionControl.valueChanges.subscribe((event: any) => {
@@ -107,11 +107,9 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
             for (var selectedPerson of this.selectedPeople) {
                  var sprintTeamPersonsFound = currentSprintTeamPersons.filter((x) => (x.personId === selectedPerson.id));
                 if (sprintTeamPersonsFound != null && sprintTeamPersonsFound.length > 0) {
-                    console.log('Person already in sprint team ' + selectedPerson.name);
                     sprintTeamPerson = sprintTeamPersonsFound[0];
 
                 } else {
-                    console.log('Selected Person not in sprint team ' + selectedPerson.name);
                     sprintTeamPerson = {
                         personId: selectedPerson.id
                     }
@@ -142,37 +140,45 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
 
     private onError(error): void {
        // this.jhiAlertService.error(error.message, null, null);
-        console.log('There was an error');
+        console.log('There was an error ' + error);
     };
 
     clearSelectedPeople(): void {
         this.selectedPeople = new Array<Person>();
     };
-
-    sprintTeamsForSprint(sprint: Iteration, team: Team): void {
-        console.log('Sprint Team for Sprint and Team ');
-        this.sprintTeamService.getBySprint(this.sprint.id).subscribe(
-            (res: ResponseWrapper) => {
-                var sprintTeams = res.json;
-                if (sprintTeams != null && sprintTeams.length > 0) {
-                    var filteredTeams = sprintTeams.filter((x) => (x.team.id === team.id));
-                    if (filteredTeams != null && filteredTeams.length > 0) {
-                        this.sprintTeam = filteredTeams[0];
-                        this.updateSelectionForPeopleAlreadyInTeam();
+/**
+  Initializes the sprintTeam
+  If the sprintTeam exists - updates the view with the information about the current sprint;
+  If the sprintTeam doesn't exist - creates a new one
+ **/
+    sprintTeamForSprintAndTeam(sprint: Iteration, team: Team): void {
+        if (this.sprint !== undefined && this.sprint != null && this.team !== undefined && this.team != null) {
+            this.sprintTeamService.getBySprintAndTeam(this.sprint.id, this.team.id).subscribe(
+                (response: SprintTeam) => {
+                    this.sprintTeam = null;
+                    this.sprintTeam = response;
+                    if (this.sprintTeam != null && this.sprintTeam !== undefined) {
+                        this.displayInformationForExistingSprintTeam();
                     } else {
                         this.prepareToCreateNewSprintTeam();
                     }
-                } else {
-                    this.prepareToCreateNewSprintTeam();
-                }
-            },
-            (res: ResponseWrapper) => this.onError(res.json)
-        );
+                },
+                (response: SprintTeam) => this.onError(response)
+            );
+        }
     };
-    private updateSelectionForPeopleAlreadyInTeam() {
+
+    /**
+     Displays information for an existing sprintTeam.
+     this.people is the GUI representation of all the people
+     this.selectedPeople is the GUI representation of all the selectedPeople.
+     The object should correspond. That's why existing elements are found in people and pushed to selected people.
+     This is a hack but the GUI representation doesn't work if selectedPeople is assigned in another way.
+     **/
+    private displayInformationForExistingSprintTeam() {
         this.selectedPeople = new Array<Person>();
         if (this.sprintTeam != null && this.sprintTeam !== undefined && this.sprintTeam.sprintTeamPersons != null
-            && this.sprintTeam.sprintTeamPersons !== undefined) {
+            && this.sprintTeam.sprintTeamPersons !== undefined && this.sprintTeam.sprintTeamPersons.length > 0) {
             const spTeamPersonIds = this.sprintTeam.sprintTeamPersons.map((x) => x.personId);
             for (var person of this.people) {
                 if (spTeamPersonIds.indexOf(person.id) > -1 ) {
