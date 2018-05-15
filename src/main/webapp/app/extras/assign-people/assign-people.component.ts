@@ -43,11 +43,11 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.initializePeople ();
         this.registerChangeInTeams();
-        this.sprintTeamForSprintAndTeam(this.sprint, this.team);
+        this.initializeSprintTeamForSprintAndTeam(this.sprint, this.team);
 
         this.personSelectionControl = new FormControl();
         this.personSelectionControl.valueChanges.subscribe((event: any) => {
-            console.log('Person Selection made');
+            console.log('PersonSelection value changed');
         });
 
         this.velocityFormControl = new FormControl();
@@ -80,10 +80,10 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
                             this.sprintTeam.velocityFactor = velocityFactor;
                             this.updateExistingSprintTeam();
                         } else {
-                            this.createSprintTeam();
+                            this.assignPeopleAndCreateSprintTeam();
                         }
                     } else {
-                        this.createSprintTeam();
+                        this.assignPeopleAndCreateSprintTeam();
                     }
                 },
                 (res: ResponseWrapper) => this.onError(res.json)
@@ -99,6 +99,13 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
             this.selectedPeople.push(person);
         }
     };
+
+    /**
+      Update existing sprint team function takes into consideration the people currently in the sprint team.
+      It compares the person in the sprint team with the selected list of people.
+      Any newly selected people will be added to the sprint team.
+      Note the difference between type Person and SprintTeamPerson (SprintTeamPerson is just an ID in this case)
+     **/
     private updateExistingSprintTeam() {
         if (this.sprintTeam != null ) {
             var currentSprintTeamPersons = this.sprintTeam.sprintTeamPersons;
@@ -117,13 +124,13 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
                 this.sprintTeam.sprintTeamPersons.push(sprintTeamPerson);
             }
             this.sprintTeamService.update(this.sprintTeam).subscribe(
-                (response: SprintTeam) => console.log('Successfully updated SprintTeam for '),
-                (error: any) => console.log('Failed to update SprintTeam: ') )// TODO: handle errors?
+                (response: SprintTeam) => console.log('Successfully updated SprintTeam for' + response.team.name),
+                (error: any) => console.log('Failed to update SprintTeam: ' + error) )// TODO: handle errors?
 
         }
     };
 
-    private createSprintTeam() {
+    private assignPeopleAndCreateSprintTeam() {
         this.sprintTeam.sprintTeamPersons = new Array<any>();
         for (var selectedPerson of this.selectedPeople) {
             var sprintTeamPerson: any = {
@@ -151,7 +158,7 @@ export class AssignPeopleComponent implements OnInit, OnDestroy {
   If the sprintTeam exists - updates the view with the information about the current sprint;
   If the sprintTeam doesn't exist - creates a new one
  **/
-    sprintTeamForSprintAndTeam(sprint: Iteration, team: Team): void {
+    initializeSprintTeamForSprintAndTeam(sprint: Iteration, team: Team): void {
         if (this.sprint !== undefined && this.sprint != null && this.team !== undefined && this.team != null) {
             this.sprintTeamService.getBySprintAndTeam(this.sprint.id, this.team.id).subscribe(
                 (response: SprintTeam) => {
